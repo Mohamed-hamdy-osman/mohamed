@@ -15,6 +15,7 @@ test.afterEach(async ({}, testInfo) => {
 
 test('Valid Login Test', async () => {
   await loginPage.login('admin@zeta.com', 'P@ssw0rd');
+  
 });
 test('InValid Login Test', async () => {
   await loginPage.login('admin@zeta.com', 'P@ssw0rd?');

@@ -16,6 +16,11 @@ export class CreatePurchaseRequestPage {
   readonly item_dropdown: Locator;
   readonly uom_dropdown: Locator;
 
+  readonly costCenter_dropdown: Locator;
+
+  readonly serviceName_dropdown: Locator;
+  readonly description_textbox: Locator;
+
   readonly quantity_textbox: Locator;
   readonly unitPrice_textbox: Locator;
 
@@ -33,20 +38,24 @@ export class CreatePurchaseRequestPage {
 
     this.addLine_btn = page.getByRole('button', { name: 'Add Line' });
 
-    // Line dropdowns
+    // Item Line dropdowns
     this.type_dropdown = page.getByRole('combobox').nth(3);
     this.group_dropdown = page.getByRole('combobox').nth(4);
     this.subGroup_dropdown = page.getByRole('combobox').nth(5);
     this.item_dropdown = page.getByRole('combobox').nth(6);
     this.uom_dropdown = page.getByRole('combobox').nth(7);
 
-    // Inputs داخل الـ modal
+    // Cost center يظهر بعد UOM
+this.costCenter_dropdown = page.getByRole('combobox').nth(8);
+    // Service fields
+    this.serviceName_dropdown = page.getByRole('combobox').nth(4);
+   this.description_textbox = page.locator("textarea[placeholder='Description']").first();
+    // Inputs
     this.quantity_textbox = page.getByPlaceholder('Enter Quantity');
     this.unitPrice_textbox = page.getByPlaceholder('Enter Unit Price');
 
+    // Buttons
     this.saveLine_btn = page.getByRole('button', { name: 'Save', exact: true });
-
-    // زر Submit النهائي
     this.submit_btn = page.getByRole('button', { name: 'Submit', exact: true });
 
   }
@@ -55,20 +64,22 @@ export class CreatePurchaseRequestPage {
 
     await dropdown.click();
 
-    const panel = this.page.locator('.p-overlay:visible').first();
+    const panel = this.page.locator('.p-overlay:visible').last();
 
     await panel.waitFor({ state: 'visible' });
 
-    await panel.locator('.p-select-option').nth(index).click();
+    const options = panel.locator('.p-select-option');
+
+    await options.first().waitFor({ state: 'visible' });
+
+    await options.nth(index).click();
 
   }
 
   async fillRequiredFields() {
 
     await this.selectOption(this.branch_dropdown, 0);
-
     await this.selectOption(this.requester_dropdown, 0);
-
     await this.selectOption(this.financialPeriod_dropdown, 0);
 
   }
@@ -79,25 +90,52 @@ export class CreatePurchaseRequestPage {
 
     await this.addLine_btn.click();
 
-    await this.quantity_textbox.waitFor({ state: 'visible' });
+    await this.type_dropdown.waitFor({ state: 'visible' });
 
   }
 
-  async fillPurchaseLine() {
+  async fillPurchaseLine(line: any) {
 
-    await this.selectOption(this.type_dropdown, 0);
+    // Select Type
+    await this.selectOption(this.type_dropdown, line.typeIndex);
 
-    await this.selectOption(this.group_dropdown, 2);
+    // Service Line
+    if (line.isService) {
 
-    await this.selectOption(this.subGroup_dropdown, 0);
+      await this.selectOption(this.serviceName_dropdown, 0);
 
-    await this.selectOption(this.item_dropdown, 0);
+      await this.description_textbox.fill('service');
 
-    await this.selectOption(this.uom_dropdown, 0);
+      await this.selectOption(this.costCenter_dropdown, 0);
 
-    await this.quantity_textbox.fill('20');
+      await this.unitPrice_textbox.fill('100');
 
-    await this.unitPrice_textbox.fill('20');
+    }
+
+    // Item Line
+    else {
+
+      await this.selectOption(this.group_dropdown, line.groupIndex);
+
+      await this.selectOption(this.subGroup_dropdown, line.subGroupIndex);
+
+      await this.selectOption(this.item_dropdown, line.itemIndex);
+
+      await this.selectOption(this.uom_dropdown, line.uomIndex);
+
+      // Cost center يظهر فقط لبعض lines
+      if (line.withCostCenter) {
+
+        await this.selectOption(this.costCenter_dropdown, 0);
+
+      }
+  
+
+      await this.quantity_textbox.fill(line.quantity);
+
+      await this.unitPrice_textbox.fill(line.price);
+
+    }
 
   }
 
@@ -109,15 +147,31 @@ export class CreatePurchaseRequestPage {
 
   }
 
-  async submitPurchaseRequest() {
+  async addMultiplePurchaseLines(lines: any[]) {
 
-    // انتظار اختفاء loader
-    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
+    for (const line of lines) {
 
-    await expect(this.submit_btn).toBeEnabled();
+      await this.addPurchaseLine();
 
-    await this.submit_btn.click();
+      await this.fillPurchaseLine(line);
+
+      await this.saveLine();
+
+    }
 
   }
 
+async submitPurchaseRequest() {
+
+  await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
+
+  const submitBtn = this.page.getByRole('button', { name: 'Submit' });
+
+  await expect(submitBtn).toBeVisible();
+  await expect(submitBtn).toBeEnabled();
+
+  await submitBtn.click();
+
+  await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
+  await expect(this.page.getByText('Purchase Request Submitted Successfully')).toBeVisible();}
 }

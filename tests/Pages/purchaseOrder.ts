@@ -33,8 +33,8 @@ export class PurchaseOrderPage {
       exact: true
     });
 
-    // إصلاح locator بسبب Auto-Create
-    this.create_btn = page.locator('button:has-text("Create")').first();
+    // إصلاح locator بسبب وجود Auto-Create
+    this.create_btn = page.locator('button:has-text("Create")').nth(1);
 
     this.filterChevron = page.locator('span.pi-chevron-down');
 

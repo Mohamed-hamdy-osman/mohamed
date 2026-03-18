@@ -1,61 +1,51 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
 export class LoginPage {
+    readonly page: Page;
+    readonly username_tb: Locator;
+    readonly password_tb: Locator;
+    readonly login_btn: Locator;
+    readonly InvalidLoginFailure_locator: Locator;
 
-  readonly page: Page;
-  readonly username_tb: Locator;
-  readonly password_tb: Locator;
-  readonly login_btn: Locator;
-  readonly invalidLogin_msg: Locator;
+    readonly url: string = 'https://test.actorserp.com/zeta';
 
-  readonly url: string = 'https://test.actorserp.com/zeta';
+    constructor(page: Page) {
+        this.page = page;
 
-  constructor(page: Page) {
+        this.username_tb = page.locator('#loginName');
+        this.password_tb = page.getByRole('textbox', { name: 'Password' });
+        this.login_btn = page.locator('#submit-button');
 
-    this.page = page;
+        this.InvalidLoginFailure_locator = page.getByText('Password is invalid');
+    }
 
-    this.username_tb = page.locator('#loginName');
+    async goto() {
+        await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
+    }
 
-    this.password_tb = page.getByRole('textbox', { name: 'Password' });
+    async login(username: string, password: string) {
 
-    this.login_btn = page.locator('#submit-button');
+        await this.page.waitForSelector('#loginName');
+        await this.username_tb.fill(username);
+        await this.login_btn.click();
+                await this.page.waitForSelector('#password');
 
-    this.invalidLogin_msg = page.getByText('Password is invalid');
+        await this.page.waitForTimeout(1000); 
+        await this.password_tb.fill(password);
 
-  }
+        await this.login_btn.click();
+    }
 
-  async goto() {
+    async verifyLoginSuccess() {
 
-    await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
+        await this.page.waitForURL(/choose-module/, { timeout: 20000 });
 
-  }
+    }
 
-  async login(username: string, password: string) {
+    async verifyLoginFailure() {
 
-    await this.username_tb.waitFor({ state: 'visible' });
+        await expect(this.page).not.toHaveURL(/choose-module/);
+        await expect(this.InvalidLoginFailure_locator).toBeVisible();
 
-    await this.username_tb.fill(username);
-
-    await this.login_btn.click();
-
-    await this.password_tb.waitFor({ state: 'visible' });
-
-    await this.password_tb.fill(password);
-
-    await this.login_btn.click();
-
-  }
-
-  async verifyLoginSuccess() {
-
-    await this.page.waitForURL(/choose-module/, { timeout: 60000 });
-
-  }
-
-  async verifyLoginFailure() {
-
-    await expect(this.invalidLogin_msg).toBeVisible();
-
-  }
-
+    }
 }

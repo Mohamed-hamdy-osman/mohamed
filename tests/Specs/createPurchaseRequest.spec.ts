@@ -19,7 +19,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   console.log(`Test start: ${testInfo.title}`);
 
-  await loginPage.login('admin@zeta.com','P@ssw0rd');
+  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
 
   await loginPage.verifyLoginSuccess();
 
@@ -33,7 +33,7 @@ test.afterEach(async ({}, testInfo) => {
 
 test('Verify Create Purchase Request', async () => {
 
-  // Navigate to Purchase Requests page
+  // Navigate to Purchase Requests
   await purchaseRequestPage.navigateToPurchaseRequests();
 
   // Click Create
@@ -42,14 +42,54 @@ test('Verify Create Purchase Request', async () => {
   // Fill header fields
   await createPurchaseRequestPage.fillRequiredFields();
 
-  // Add new line
-  await createPurchaseRequestPage.addPurchaseLine();
+  // Add multiple lines
+  await createPurchaseRequestPage.addMultiplePurchaseLines([
 
-  // Fill line data
-  await createPurchaseRequestPage.fillPurchaseLine();
+    // Line 1 (Item + Cost Center)
+    {
+      typeIndex: 0,
+      groupIndex: 0,
+      subGroupIndex: 0,
+      itemIndex: 0,
+      uomIndex: 0,
+      withCostCenter: true,
+      quantity: '10',
+      price: '20'
+    },
 
-  // Save line
-  await createPurchaseRequestPage.saveLine();
+    // Line 2 (Item)
+    {
+      typeIndex: 0,
+      groupIndex: 1,
+      subGroupIndex: 0,
+      itemIndex: 0,
+      uomIndex: 0,
+      quantity: '15',
+      price: '30'
+    },
+
+    // Line 3 (Item)
+    {
+      typeIndex: 0,
+      groupIndex: 2,
+      subGroupIndex: 0,
+      itemIndex: 0,
+      uomIndex: 0,
+      quantity: '5',
+      price: '25'
+    },
+
+    // Line 4 (Service)
+    //{
+     // typeIndex: 1,
+     // isService: true,
+      //withCostCenter: true,
+     // additionalDescription: 'Service Additional Description',
+    //  description: 'Service Description',
+     // price: '100'
+   // }
+
+  ]);
 
   // Submit Purchase Request
   await createPurchaseRequestPage.submitPurchaseRequest();

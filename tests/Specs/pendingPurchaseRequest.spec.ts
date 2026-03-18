@@ -9,15 +9,19 @@ test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
 
+  // initialize pages
   loginPage = new LoginPage(page);
   pendingPurchaseRequestPage = new PendingPurchaseRequestPage(page);
 
-  await loginPage.goto();
-
   console.log(`Test start: ${testInfo.title}`);
 
-  await loginPage.login('admin@zeta.com','P@ssw0rd');
+  // open system
+  await loginPage.goto();
 
+  // login
+  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
+
+  // verify login success
   await loginPage.verifyLoginSuccess();
 
 });
@@ -29,7 +33,7 @@ test.afterEach(async ({}, testInfo) => {
 });
 
 
-test('Verify Navigation To Manage Pending Purchase Requests Page', async () => {
+test('Verify Navigation To Manage Pending Purchase Requests Page', async ({ page }) => {
 
   await pendingPurchaseRequestPage.navigateToPendingPurchaseRequests();
 
@@ -38,4 +42,28 @@ test('Verify Navigation To Manage Pending Purchase Requests Page', async () => {
 });
 
 
-;
+test('Verify Approve Pending Purchase Request', async ({ page }) => {
+
+  await pendingPurchaseRequestPage.navigateToPendingPurchaseRequests();
+
+  await pendingPurchaseRequestPage.approvePurchaseRequest();
+
+});
+
+
+test('Verify Reject Pending Purchase Request', async ({ page }) => {
+
+  await pendingPurchaseRequestPage.navigateToPendingPurchaseRequests();
+
+  await pendingPurchaseRequestPage.rejectPurchaseRequest();
+
+});
+
+
+test('Verify Return Pending Purchase Request', async ({ page }) => {
+
+  await pendingPurchaseRequestPage.navigateToPendingPurchaseRequests();
+
+  await pendingPurchaseRequestPage.returnPurchaseRequest();
+
+}); 
