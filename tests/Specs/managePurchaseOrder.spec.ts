@@ -1,16 +1,16 @@
 import { test } from '@playwright/test';
 import { LoginPage } from '../Pages/loginPage';
-import { PurchaseOrderPage } from '../Pages/purchaseOrder';
+import { managePurchaseOrderPage } from '../Pages/managepurchaseOrder';
 
 let loginPage!: LoginPage;
-let purchaseOrderPage!: PurchaseOrderPage;
+let purchaseOrderPage!: managePurchaseOrderPage;
 
 test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
 
   loginPage = new LoginPage(page);
-  purchaseOrderPage = new PurchaseOrderPage(page);
+  purchaseOrderPage = new managePurchaseOrderPage(page);
 
   await loginPage.goto();
 

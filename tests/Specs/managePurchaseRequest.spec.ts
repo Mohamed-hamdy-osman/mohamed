@@ -1,9 +1,8 @@
 import { test } from '@playwright/test';
 import { LoginPage } from '../Pages/loginPage';
-import { PurchaseRequestPage } from '../Pages/purchaseRequest';
-
+import { ManagePurchaseRequestPage } from '../Pages/managePurchaseRequest';
 let loginPage!: LoginPage;
-let purchaseRequestPage!: PurchaseRequestPage;
+let purchaseRequestPage!: ManagePurchaseRequestPage;
 
 test.setTimeout(60000);
 
@@ -11,7 +10,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   // initialize pages
   loginPage = new LoginPage(page);
-  purchaseRequestPage = new PurchaseRequestPage(page);
+  purchaseRequestPage = new ManagePurchaseRequestPage(page);
 
   // open system
   await loginPage.goto();

@@ -1,13 +1,13 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-export class PurchaseOrderPage {
+export class ManagePurchaseRequestPage {
 
   readonly page: Page;
 
   readonly supplyChain_btn: Locator;
   readonly purchasing_btn: Locator;
   readonly operationsmenu_btn: Locator;
-  readonly purchaseOrder_menu: Locator;
+  readonly purchaseRequests_menu: Locator;
 
   readonly create_btn: Locator;
 
@@ -28,13 +28,12 @@ export class PurchaseOrderPage {
     this.purchasing_btn = page.getByText('Purchasing');
     this.operationsmenu_btn = page.getByText('Operations');
 
-    this.purchaseOrder_menu = page.getByRole('link', {
-      name: 'Purchase Order',
+    this.purchaseRequests_menu = page.getByRole('link', {
+      name: 'Purchase Requests',
       exact: true
     });
 
-    // إصلاح locator بسبب وجود Auto-Create
-    this.create_btn = page.locator('button:has-text("Create")').nth(1);
+    this.create_btn = page.getByRole('button', { name: 'Create' });
 
     this.filterChevron = page.locator('span.pi-chevron-down');
 
@@ -47,7 +46,7 @@ export class PurchaseOrderPage {
 
   }
 
-  async navigateToPurchaseOrders() {
+  async navigateToPurchaseRequests() {
 
     await this.supplyChain_btn.click();
 
@@ -58,15 +57,15 @@ export class PurchaseOrderPage {
     await this.operationsmenu_btn.click();
 
     await Promise.all([
-      this.page.waitForURL(/purchase-order/),
-      this.purchaseOrder_menu.click()
+      this.page.waitForURL(/purchase-requests/),
+      this.purchaseRequests_menu.click()
     ]);
 
   }
 
-  async verifyNavigationToManagePurchaseOrders() {
+  async verifyNavigationToManagePurchaseRequests() {
 
-    await expect(this.page).toHaveURL(/purchase-order/);
+    await expect(this.page).toHaveURL(/purchase-requests/);
 
     await expect(this.create_btn).toBeVisible();
 
@@ -76,13 +75,15 @@ export class PurchaseOrderPage {
 
     await this.filterChevron.click();
 
+    await this.creationFrom_datepicker.waitFor({ state: 'visible' });
+
     await this.creationFrom_datepicker.fill('01/02/2025');
 
     await this.creationTo_datepicker.fill('28/02/2025');
 
   }
 
-  async searchPurchaseOrder() {
+  async searchPurchaseRequest() {
 
     await this.search_btn.waitFor({ state: 'visible' });
 

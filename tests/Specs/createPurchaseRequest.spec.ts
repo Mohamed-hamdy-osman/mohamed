@@ -1,10 +1,10 @@
 import { test } from '@playwright/test';
 import { LoginPage } from '../Pages/loginPage';
-import { PurchaseRequestPage } from '../Pages/purchaseRequest';
+import { ManagePurchaseRequestPage } from '../Pages/managePurchaseRequest';
 import { CreatePurchaseRequestPage } from '../Pages/createPurchaseRequest';
 
 let loginPage!: LoginPage;
-let purchaseRequestPage!: PurchaseRequestPage;
+let managePurchaseRequestPage!: ManagePurchaseRequestPage;
 let createPurchaseRequestPage!: CreatePurchaseRequestPage;
 
 test.setTimeout(60000);
@@ -12,7 +12,7 @@ test.setTimeout(60000);
 test.beforeEach(async ({ page }, testInfo) => {
 
   loginPage = new LoginPage(page);
-  purchaseRequestPage = new PurchaseRequestPage(page);
+  managePurchaseRequestPage = new ManagePurchaseRequestPage(page);
   createPurchaseRequestPage = new CreatePurchaseRequestPage(page);
 
   await loginPage.goto();
@@ -34,10 +34,10 @@ test.afterEach(async ({}, testInfo) => {
 test('Verify Create Purchase Request', async () => {
 
   // Navigate to Purchase Requests
-  await purchaseRequestPage.navigateToPurchaseRequests();
+  await managePurchaseRequestPage.navigateToPurchaseRequests();
 
   // Click Create
-  await purchaseRequestPage.create_btn.click();
+  await managePurchaseRequestPage.create_btn.click();
 
   // Fill header fields
   await createPurchaseRequestPage.fillRequiredFields();

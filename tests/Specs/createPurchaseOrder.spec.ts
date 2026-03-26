@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../Pages/loginPage';
-import { PurchaseOrderPage } from '../Pages/purchaseOrder';
+import { ManagePurchaseOrderPage } from '../Pages/managePurchaseOrder';
 import { CreatePurchaseOrderPage } from '../Pages/createPurchaseOrder';
 
 let loginPage!: LoginPage;
-let purchaseOrderPage!: PurchaseOrderPage;
+let managePurchaseOrderPage!: ManagePurchaseOrderPage;
 let createPurchaseOrderPage!: CreatePurchaseOrderPage;
 
 test.setTimeout(60000);
@@ -12,7 +12,7 @@ test.setTimeout(60000);
 test.beforeEach(async ({ page }, testInfo) => {
 
   loginPage = new LoginPage(page);
-  purchaseOrderPage = new PurchaseOrderPage(page);
+  managePurchaseOrderPage = new ManagePurchaseOrderPage(page);
   createPurchaseOrderPage = new CreatePurchaseOrderPage(page);
 
   await loginPage.goto();
@@ -37,14 +37,14 @@ test.afterEach(async ({}, testInfo) => {
 test('Verify Create Purchase Order', async ({ page }) => {
 
   // Navigate
-  await purchaseOrderPage.navigateToPurchaseOrders();
+  await managePurchaseOrderPage.navigateToPurchaseOrders();
 
   // ✅ استنى الصفحة تستقر
   await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
 
   // Click Create
-  await expect(purchaseOrderPage.create_btn).toBeVisible({ timeout: 15000 });
-  await purchaseOrderPage.create_btn.click();
+  await expect(managePurchaseOrderPage.create_btn).toBeVisible({ timeout: 15000 });
+  await managePurchaseOrderPage.create_btn.click();
 
   // ✅ تأكد إن صفحة create فتحت
   await expect(page).toHaveURL(/add-purchase-order/);

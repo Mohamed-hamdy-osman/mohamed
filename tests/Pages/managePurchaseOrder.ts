@@ -1,13 +1,13 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-export class PurchaseRequestPage {
+export class ManagePurchaseOrderPage {
 
   readonly page: Page;
 
   readonly supplyChain_btn: Locator;
   readonly purchasing_btn: Locator;
   readonly operationsmenu_btn: Locator;
-  readonly purchaseRequests_menu: Locator;
+  readonly purchaseOrder_menu: Locator;
 
   readonly create_btn: Locator;
 
@@ -28,12 +28,13 @@ export class PurchaseRequestPage {
     this.purchasing_btn = page.getByText('Purchasing');
     this.operationsmenu_btn = page.getByText('Operations');
 
-    this.purchaseRequests_menu = page.getByRole('link', {
-      name: 'Purchase Requests',
+    this.purchaseOrder_menu = page.getByRole('link', {
+      name: 'Purchase Order',
       exact: true
     });
 
-    this.create_btn = page.getByRole('button', { name: 'Create' });
+    // إصلاح locator بسبب وجود Auto-Create
+    this.create_btn = page.locator('button:has-text("Create")').nth(1);
 
     this.filterChevron = page.locator('span.pi-chevron-down');
 
@@ -46,7 +47,7 @@ export class PurchaseRequestPage {
 
   }
 
-  async navigateToPurchaseRequests() {
+  async navigateToPurchaseOrders() {
 
     await this.supplyChain_btn.click();
 
@@ -57,15 +58,15 @@ export class PurchaseRequestPage {
     await this.operationsmenu_btn.click();
 
     await Promise.all([
-      this.page.waitForURL(/purchase-requests/),
-      this.purchaseRequests_menu.click()
+      this.page.waitForURL(/purchase-order/),
+      this.purchaseOrder_menu.click()
     ]);
 
   }
 
-  async verifyNavigationToManagePurchaseRequests() {
+  async verifyNavigationToManagePurchaseOrders() {
 
-    await expect(this.page).toHaveURL(/purchase-requests/);
+    await expect(this.page).toHaveURL(/purchase-order/);
 
     await expect(this.create_btn).toBeVisible();
 
@@ -75,16 +76,13 @@ export class PurchaseRequestPage {
 
     await this.filterChevron.click();
 
-    await this.creationFrom_datepicker.waitFor({ state: 'visible' });
-
-    // كتابة التاريخ مباشرة
     await this.creationFrom_datepicker.fill('01/02/2025');
 
     await this.creationTo_datepicker.fill('28/02/2025');
 
   }
 
-  async searchPurchaseRequest() {
+  async searchPurchaseOrder() {
 
     await this.search_btn.waitFor({ state: 'visible' });
 

@@ -21,7 +21,7 @@ export class CreatePurchaseOrderPage {
 
     this.page = page;
 
-    // Header
+    // Header Data
     this.poVersion_dropdown = page.getByRole('combobox').nth(0);
     this.branch_dropdown = page.getByRole('combobox').nth(1);
     this.currency_dropdown = page.getByRole('combobox').nth(2);
@@ -41,7 +41,6 @@ export class CreatePurchaseOrderPage {
 
     const safeIndex = index ?? 0;
 
-    // انتظار اختفاء اللودر
     await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
 
     await dropdown.waitFor({ state: 'visible' });
@@ -67,10 +66,9 @@ export class CreatePurchaseOrderPage {
 
     await this.selectOption(this.vendor_dropdown, 0);
 
-    // انتظار auto fields
+    
     await this.page.waitForTimeout(2000);
 
-    // Financial Period
     await this.page.locator('text=Select Financial Period').click();
     await this.page.locator('.p-select-option').first().click();
   }
@@ -81,7 +79,6 @@ export class CreatePurchaseOrderPage {
 
     await this.addLine_btn.click();
 
-    // ✅ انتظار popup الحقيقي
     await this.page.locator('.p-dialog:visible').waitFor({ state: 'visible' });
   }
 
