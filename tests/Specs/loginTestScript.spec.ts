@@ -17,6 +17,10 @@ test('Valid Login Test', async () => {
   await loginPage.login('admin@zeta.com', 'P@ssw0rd');
   
 });
+test('Valid Login with Corporate Test', async () => {
+  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
+  await loginPage.verifyLoginSuccessWithCorporate();
+});
 test('InValid Login Test', async () => {
   await loginPage.login('admin@zeta.com', 'P@ssw0rd?');
   await loginPage.verifyLoginFailure();

@@ -1,16 +1,16 @@
 import { test } from '@playwright/test';
 import { LoginPage } from '../Pages/loginPage';
-import { managePurchaseOrderPage } from '../Pages/managepurchaseOrder';
+import { ManagePurchaseOrderPage } from '../Pages/managePurchaseOrder';
 
 let loginPage!: LoginPage;
-let purchaseOrderPage!: managePurchaseOrderPage;
+let purchaseOrderPage!: ManagePurchaseOrderPage;
 
 test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
 
   loginPage = new LoginPage(page);
-  purchaseOrderPage = new managePurchaseOrderPage(page);
+  purchaseOrderPage = new ManagePurchaseOrderPage(page);
 
   await loginPage.goto();
 
@@ -18,7 +18,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   await loginPage.login('admin@zeta.com','P@ssw0rd');
 
-  await loginPage.verifyLoginSuccess();
+  await loginPage.verifyLoginSuccessWithCorporate();
 
 });
 

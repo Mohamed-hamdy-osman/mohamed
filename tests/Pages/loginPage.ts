@@ -6,6 +6,7 @@ export class LoginPage {
     readonly password_tb: Locator;
     readonly login_btn: Locator;
     readonly InvalidLoginFailure_locator: Locator;
+    readonly logToCorporate_btn: Locator;
 
     readonly url: string = 'https://test.actorserp.com/zeta';
 
@@ -13,10 +14,15 @@ export class LoginPage {
         this.page = page;
 
         this.username_tb = page.locator('#loginName');
-        this.password_tb = page.getByRole('textbox', { name: 'Password' });
+        this.password_tb = page.locator('#password');
         this.login_btn = page.locator('#submit-button');
-
         this.InvalidLoginFailure_locator = page.getByText('Password is invalid');
+
+        // ✅ الزرار التاني من الجدول (row التاني)
+        this.logToCorporate_btn = page
+            .locator('tbody tr')
+            .nth(1)
+            .getByRole('button', { name: 'Log to Corporate' });
     }
 
     async goto() {
@@ -25,12 +31,12 @@ export class LoginPage {
 
     async login(username: string, password: string) {
 
-        await this.page.waitForSelector('#loginName');
+        await this.username_tb.waitFor();
         await this.username_tb.fill(username);
-        await this.login_btn.click();
-                await this.page.waitForSelector('#password');
 
-        await this.page.waitForTimeout(1000); 
+        await this.login_btn.click();
+
+        await this.password_tb.waitFor();
         await this.password_tb.fill(password);
 
         await this.login_btn.click();
@@ -38,13 +44,26 @@ export class LoginPage {
 
     async verifyLoginSuccess() {
 
-        await this.page.waitForURL(/choose-module/, { timeout: 20000 });
+        // تأكد إن الجدول ظهر
+        await expect(this.page.locator('tbody tr').first()).toBeVisible({ timeout: 30000 });
+
+    }
+
+    async verifyLoginSuccessWithCorporate() {
+
+        await this.page.waitForLoadState('networkidle');
+
+        await expect(this.logToCorporate_btn).toBeVisible();
+
+        await Promise.all([
+            this.page.waitForURL(/main/),
+            this.logToCorporate_btn.click()
+        ]);
 
     }
 
     async verifyLoginFailure() {
 
-        await expect(this.page).not.toHaveURL(/choose-module/);
         await expect(this.InvalidLoginFailure_locator).toBeVisible();
 
     }

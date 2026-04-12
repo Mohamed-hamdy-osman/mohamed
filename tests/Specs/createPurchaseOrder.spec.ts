@@ -21,7 +21,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   await loginPage.login('admin@zeta.com','P@ssw0rd');
 
-  await loginPage.verifyLoginSuccess();
+  await loginPage.verifyLoginSuccessWithCorporate();
 
   // ✅ استنى اللودر يختفي بعد اللوجين
   await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });

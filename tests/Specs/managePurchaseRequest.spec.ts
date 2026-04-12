@@ -21,7 +21,7 @@ test.beforeEach(async ({ page }, testInfo) => {
   await loginPage.login('admin@zeta.com','P@ssw0rd');
 
   // verify login
-  await loginPage.verifyLoginSuccess();
+  await loginPage.verifyLoginSuccessWithCorporate();
 
 });
 

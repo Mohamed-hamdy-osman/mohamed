@@ -18,7 +18,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   await loginPage.login('admin@zeta.com', 'P@ssw0rd');
 
-  await loginPage.verifyLoginSuccess();
+  await loginPage.verifyLoginSuccessWithCorporate();
 
   // ✅ مهم جدًا
   await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
