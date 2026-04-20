@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../Pages/loginPage';
-import { ManageDepartmentsPage } from '../Pages/HR-Module/Personal/Departments/manageDepartments';
+import { LoginPage } from '../../../../Pages/loginPage';
+import { ManageDepartmentsPage } from '../../../../Pages/HR-Module/Personal/Departments/manageDepartments';
 
 let loginPage: LoginPage;
 let manageDepartmentsPage: ManageDepartmentsPage;
