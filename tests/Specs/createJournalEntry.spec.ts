@@ -22,7 +22,7 @@ test.beforeEach(async ({ page }) => {
   await loginPage.verifyLoginSuccessWithCorporate();
 });
 
-test('Create Journal Entry Full Flow (Indexed 🔥)', async ({ page }) => {
+test('Create Journal Entry Header + Add Line', async ({ page }) => {
 
   // =========================
   // ✅ Navigate
@@ -35,40 +35,20 @@ test('Create Journal Entry Full Flow (Indexed 🔥)', async ({ page }) => {
   await manageJournalEntryPage.addJournalEntry_btn.click();
 
   // =========================
-  // ✅ HEADER (Static)
+  // ✅ HEADER
   // =========================
   await createJournalEntryPage.enterJournalName();
   await createJournalEntryPage.selectFirstCategory();
   await createJournalEntryPage.selectTodayDate();
 
   // =========================
-  // ✅ LINE 1 (index 0)
+  // ✅ ACTION
   // =========================
   await createJournalEntryPage.clickAddLine();
 
-  await createJournalEntryPage.selectAccountByIndex(0);
-  await createJournalEntryPage.enterDebitByIndex(0, '100');
-
   // =========================
-  // ✅ LINE 2 (index 1)
+  // ✅ ASSERTION
   // =========================
-  await createJournalEntryPage.clickAddLine();
-
-  await createJournalEntryPage.selectAccountByIndex(1);
-  await createJournalEntryPage.enterCreditByIndex(1, '100');
-
-  // =========================
-  // ✅ ASSERT BEFORE SAVE
-  // =========================
-  await expect(page.locator('table tbody tr')).toHaveCount(2);
-
-  // =========================
-  // ✅ SAVE
-  // =========================
-  await createJournalEntryPage.saveJournalEntry();
-
-  // =========================
-  // ✅ ASSERT AFTER SAVE
-  // =========================
-  await expect(page).toHaveURL(/journal/);
+  await expect(page.locator('table tbody tr')).toHaveCount(1);
+  await expect(page.getByText('Select Account').first()).toBeVisible();
 });

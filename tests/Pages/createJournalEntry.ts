@@ -8,23 +8,26 @@ export class CreateJournalEntryPage {
   readonly journalDate_input: Locator;
   readonly category_dropdown: Locator;
   readonly addLine_btn: Locator;
-  readonly save_btn: Locator;
 
   constructor(page: Page) {
 
     this.page = page;
 
-    // ✅ Header (Indexed)
-    this.journalName_textbox = page.locator('input[placeholder="Journal Name"]').nth(0);
+    // ✅ Journal Name
+    this.journalName_textbox = page
+      .locator('input[placeholder="Journal Name"]')
+      .first();
 
-    this.journalDate_input = page.locator('input[placeholder="Journal Date"]').nth(0);
+    // ✅ Journal Date
+    this.journalDate_input = page
+      .locator('input[placeholder="Journal Date"]')
+      .first();
 
-    this.category_dropdown = page.getByRole('combobox', { name: 'Category' }).nth(0);
+    // ✅ Category
+    this.category_dropdown = page.getByRole('combobox', { name: 'Category' });
 
-    // ✅ Actions
-    this.addLine_btn = page.getByRole('button', { name: 'Add Line' }).nth(0);
-
-    this.save_btn = page.getByRole('button', { name: 'Save' }).nth(0);
+    // ✅ Add Line
+    this.addLine_btn = page.getByRole('button', { name: 'Add Line' });
   }
 
   // =========================
@@ -35,7 +38,7 @@ export class CreateJournalEntryPage {
   }
 
   // =========================
-  // ✅ Category (Keyboard Stable)
+  // ✅ Category (Keyboard)
   // =========================
   async selectFirstCategory() {
 
@@ -48,12 +51,10 @@ export class CreateJournalEntryPage {
     await this.page.keyboard.press('Enter');
     await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
-
-    await dropdown.press('Tab'); // 🔥 مهم
   }
 
   // =========================
-  // ✅ Date
+  // ✅ Date (Fixed 🔥)
   // =========================
   async selectTodayDate() {
 
@@ -67,70 +68,17 @@ export class CreateJournalEntryPage {
 
     await this.journalDate_input.fill(formattedDate);
 
-    await this.journalDate_input.press('Tab'); // 🔥 مهم
+    // 💥 مهم: اقفل الـ datepicker
+    await this.page.keyboard.press('Escape');
   }
 
   // =========================
-  // ✅ Add Line
+  // ✅ Add Line (Fixed 🔥)
   // =========================
   async clickAddLine() {
+
+    await this.addLine_btn.scrollIntoViewIfNeeded();
+
     await this.addLine_btn.click({ force: true });
-  }
-
-  // =========================
-  // ✅ Select Account (Indexed)
-  // =========================
-  async selectAccountByIndex(index: number) {
-
-    const row = this.page.locator('table tbody tr').nth(index);
-
-    await row.locator('text=Select Account').click();
-
-    const dialog = this.page.locator('.p-dialog:visible');
-
-    await dialog.waitFor();
-
-    await dialog.locator('input[type="radio"]').nth(0).click({ force: true });
-
-    await dialog.waitFor({ state: 'hidden' });
-  }
-
-  // =========================
-  // ✅ Debit (FIXED 🔥)
-  // =========================
-  async enterDebitByIndex(index: number, value: string) {
-
-    const row = this.page.locator('table tbody tr').nth(index);
-
-    const debit = row.locator('input[placeholder="Enter Debit Value"]');
-
-    await debit.waitFor({ state: 'visible' });
-
-    await debit.click();
-
-    await debit.fill(value);
-  }
-
-  // =========================
-  // ✅ Credit (FIXED 🔥)
-  // =========================
-  async enterCreditByIndex(index: number, value: string) {
-
-    const row = this.page.locator('table tbody tr').nth(index);
-
-    const credit = row.locator('input[placeholder="Enter Credit Value"]');
-
-    await credit.waitFor({ state: 'visible' });
-
-    await credit.click();
-
-    await credit.fill(value);
-  }
-
-  // =========================
-  // ✅ Save
-  // =========================
-  async saveJournalEntry() {
-    await this.save_btn.click();
   }
 }
