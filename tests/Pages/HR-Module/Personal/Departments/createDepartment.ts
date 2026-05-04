@@ -59,4 +59,27 @@ export class CreateDepartmentPage {
     });
   }
 
+  async saveDepartmentWithResponse(expectedName: string) {
+    await test.step(`Saving department and verifying backend response for: ${expectedName}`, async () => {
+      await expect(this.save_btn).toBeEnabled();
+
+      // Set up response listener
+      const responsePromise = this.page.waitForResponse(
+        response => response.url().includes('add-edit-department') && response.status() === 200,
+        { timeout: 15000 }
+      );
+
+      await this.save_btn.click();
+
+      // Wait for the response
+      const response = await responsePromise;
+      const responseBody = await response.json();
+      
+      console.log('Backend Response:', JSON.stringify(responseBody, null, 2));
+
+      // Standard verification
+      await expect(this.page.locator('tbody')).toContainText(expectedName, { timeout: 15000 });
+    });
+  }
+
 }

@@ -1,12 +1,12 @@
 import { expect, type Locator, type Page, test } from '@playwright/test';
 
-export class ManageDepartmentsPage {
+export class ManageFunctionPage {
 
   readonly page: Page;
   readonly humanResources_btn: Locator;
   readonly personal_btn: Locator;
   readonly settings_btn: Locator;
-  readonly departments_menu: Locator;
+  readonly functions_menu: Locator;
   readonly create_btn: Locator;
   readonly filterChevron: Locator;
   readonly search_btn: Locator;
@@ -23,43 +23,43 @@ export class ManageDepartmentsPage {
     this.humanResources_btn = page.getByText('Human Resources');
     this.personal_btn = page.getByText('Personal management');
     this.settings_btn = page.getByText('Settings');
-    this.departments_menu = page.getByRole('link', { name: 'Departments' });
+    this.functions_menu = page.getByRole('link', { name: 'Functions' });
 
     // Action Selectors
     this.create_btn = page.getByRole('button', { name: 'Create' });
     this.filterChevron = page.locator('span.pi-chevron-down').first();
     this.search_btn = page.getByRole('button', { name: 'Search' });
     this.clear_btn = page.getByRole('button', { name: 'Clear' });
-    this.name_input = page.getByRole('textbox', { name: 'Search In Departments Name' });
+    this.name_input = page.getByRole('textbox', { name: 'Search In Functions Name' });
     this.status_dropdown = page.getByRole('combobox', { name: 'Status' });
     this.searchResultRow = page.locator('tbody tr').first();
-    this.edit_btn = page.locator('button.p-button-secondary').filter({ has: page.locator('i.pi-pencil') });
+    this.edit_btn = page.locator('button.p-button-secondary').filter({ has: page.locator('i.ki-notepad-edit') });
   }
 
-  async navigateToDepartments() {
-    await test.step('Navigating to Manage Departments Page', async () => {
+  async navigateToFunctions() {
+    await test.step('Navigating to Manage Functions Page', async () => {
       await this.humanResources_btn.first().click();
       await this.personal_btn.first().click();
       await this.settings_btn.first().waitFor({ state: 'visible' });
       await this.settings_btn.first().click();
 
       await Promise.all([
-        this.page.waitForURL(/departments/, { waitUntil: 'domcontentloaded' }),
-        this.departments_menu.click()
+        this.page.waitForURL(/jobs/, { waitUntil: 'domcontentloaded' }),
+        this.functions_menu.click()
       ]);
       await this.page.waitForLoadState('networkidle');
     });
   }
 
-  async verifyNavigationToManageDepartments() {
-    await test.step('Verify Navigation to Departments', async () => {
-      await expect(this.page).toHaveURL(/departments/);
+  async verifyNavigationToManageFunctions() {
+    await test.step('Verify Navigation to Functions', async () => {
+      await expect(this.page).toHaveURL(/jobs/);
       await expect(this.create_btn).toBeVisible({ timeout: 15000 });
     });
   }
 
-  async searchDepartment(name?: string, status?: string) {
-    await test.step(`Searching for department: ${name || 'All'} with status: ${status || 'All'}`, async () => {
+  async searchFunction(name?: string, status?: string) {
+    await test.step(`Searching for function: ${name || 'All'} with status: ${status || 'All'}`, async () => {
       // Ensure the search panel is expanded
       if (!await this.search_btn.isVisible()) {
         await this.filterChevron.click();
