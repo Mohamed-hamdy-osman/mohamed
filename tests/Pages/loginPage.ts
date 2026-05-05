@@ -18,11 +18,8 @@ export class LoginPage {
         this.login_btn = page.locator('#submit-button');
         this.InvalidLoginFailure_locator = page.getByText('Password is invalid');
 
-        // ✅ الزرار التاني من الجدول (row التاني)
-        this.logToCorporate_btn = page
-            .locator('tbody tr')
-            .nth(1)
-            .getByRole('button', { name: 'Log to Corporate' });
+        // Selector for the Corporate login buttons
+        this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' });
     }
 
     async goto() {
@@ -49,15 +46,16 @@ export class LoginPage {
 
     }
 
-    async verifyLoginSuccessWithCorporate() {
+    async verifyLoginSuccessWithCorporate(index: number = 1) {
 
         await this.page.waitForLoadState('networkidle');
 
-        await expect(this.logToCorporate_btn).toBeVisible();
+        const targetBtn = this.logToCorporate_btn.nth(index);
+        await expect(targetBtn).toBeVisible();
 
         await Promise.all([
             this.page.waitForURL(/main/),
-            this.logToCorporate_btn.click()
+            targetBtn.click()
         ]);
 
     }
