@@ -47,7 +47,7 @@ export class LoginPage {
         await expect(this.logToCorporate_btn).toBeVisible();
         await Promise.all([
             this.page.waitForURL(/main/),
-            this.logToCorporate_btn.click()
+            targetBtn.click()
         ]);
 
     }
