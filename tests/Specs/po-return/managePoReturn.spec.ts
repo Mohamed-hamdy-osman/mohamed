@@ -1,0 +1,37 @@
+import { test } from '@playwright/test';
+import { LoginPage } from '../../Pages/login/loginPage';
+import { ManagePOReturnPage } from '../../Pages/po-return/managePOReturn';
+
+let loginPage!: LoginPage;
+let poReturnPage!: ManagePOReturnPage;
+
+test.setTimeout(60000);
+
+test.beforeEach(async ({ page }, testInfo) => {
+
+  loginPage = new LoginPage(page);
+  poReturnPage = new ManagePOReturnPage(page);
+
+  await loginPage.goto();
+
+  console.log(`Test start: ${testInfo.title}`);
+
+  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
+  await loginPage.verifyLoginSuccessWithCorporate();
+});
+
+test.afterEach(async ({}, testInfo) => {
+  console.log(`Test end: ${testInfo.title}`);
+});
+
+test('Verify Navigation To Manage PO Return Page', async () => {
+  await poReturnPage.navigateToPOReturn();
+  await poReturnPage.verifyNavigationToPOReturn();
+});
+
+test('Verify Search With Creation Date From And Creation Date To', async () => {
+  await poReturnPage.navigateToPOReturn();
+  await poReturnPage.creationDateFromAndCreationDateTo();
+  await poReturnPage.searchPOReturn();
+  await poReturnPage.verifySearchResult();
+});
