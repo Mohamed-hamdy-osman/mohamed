@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/loginPage';
+import { LoginPage } from '../../../../Pages/login/loginPage';
 import { ManagePositionPage } from '../../../../Pages/HR-Module/Personal/Position/managePosition';
 import { CreatePositionPage } from '../../../../Pages/HR-Module/Personal/Position/createPosition';
 
@@ -19,7 +19,7 @@ test.describe('Create Position Module', () => {
     await test.step('Login and Navigate to Positions', async () => {
       await loginPage.goto();
       await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-      await loginPage.verifyLoginSuccessWithCorporate(0);
+      await loginPage.verifyLoginSuccessWithCorporate();
       await managePositionPage.navigateToPositions();
     });
   });

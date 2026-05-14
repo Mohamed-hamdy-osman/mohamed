@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/loginPage';
+import { LoginPage } from '../../../../Pages/login/loginPage';
 import { ManageFunctionPage } from '../../../../Pages/HR-Module/Personal/Function/manageFunction';
 
 let loginPage: LoginPage;
@@ -16,7 +16,7 @@ test.describe('Manage Functions Module', () => {
     await test.step('Login and Navigate to Functions', async () => {
       await loginPage.goto();
       await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-      await loginPage.verifyLoginSuccessWithCorporate(0);
+      await loginPage.verifyLoginSuccessWithCorporate();
       await manageFunctionPage.navigateToFunctions();
     });
   });

@@ -9,13 +9,13 @@ test.beforeEach(async ({ page }, testInfo) => {
   console.log(`test start for test ${testInfo.title}`);
 });
 
-test.afterEach(async ({}, testInfo) => {
+test.afterEach(async ({ }, testInfo) => {
   console.log(`end test ${testInfo.title}`);
 });
 
 test('Valid Login Test', async () => {
   await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-  
+
 });
 test('Valid Login with Corporate Test', async () => {
   await loginPage.login('admin@zeta.com', 'P@ssw0rd');

@@ -36,7 +36,7 @@ export class CreatePositionPage {
 
   }
 
-  async fillPositionDetails(name: string, departmentIndex: number = 1, jobIndex: number = 1, costCenterIndex: number = 1, isActive: boolean = true) {
+  async fillPositionDetails(name: string, departmentIndex: number = 1, jobIndex: number = 1, costCenterIndex: number = 1, isActive: boolean = true, requirementName: string = 'Technical Qualification') {
     await test.step(`Filling Position Details: ${name}, Dept Index: ${departmentIndex}, Job Index: ${jobIndex}, Cost Center Index: ${costCenterIndex}, Active: ${isActive}`, async () => {
       await this.positionName_textbox.fill(name);
       
@@ -69,7 +69,7 @@ export class CreatePositionPage {
       // Fill Requirement
       await test.step('Filling Requirement Section', async () => {
           await this.requirement_textbox.waitFor({ state: 'visible' });
-          await this.requirement_textbox.fill('Technical Qualification');
+          await this.requirement_textbox.fill(requirementName);
           await this.mandatory_checkbox.click({ force: true });
           
           // Click Add button and also press Enter as fallback

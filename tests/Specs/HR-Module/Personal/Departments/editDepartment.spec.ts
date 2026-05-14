@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/loginPage';
+import { LoginPage } from '../../../../Pages/login/loginPage';
 import { ManageDepartmentsPage } from '../../../../Pages/HR-Module/Personal/Departments/manageDepartments';
 import { CreateDepartmentPage } from '../../../../Pages/HR-Module/Personal/Departments/createDepartment';
 
@@ -20,35 +20,35 @@ test.describe('Edit Department Module', () => {
       await loginPage.goto();
       await loginPage.login('admin@zeta.com', 'P@ssw0rd');
       // Using index 0 (V Cola Z) which contains data
-      await loginPage.verifyLoginSuccessWithCorporate(0);
+      await loginPage.verifyLoginSuccessWithCorporate();
       await manageDepartmentsPage.navigateToDepartments();
     });
   });
 
   test('TC01 - Create then Edit Department and Check Backend Response', async () => {
-    
+
     const timestamp = new Date().getTime();
     const deptName = `AutoDept_${timestamp}`;
     const updatedDeptName = `${deptName}_Updated`;
 
     await test.step('Create Department First', async () => {
-        await manageDepartmentsPage.create_btn.click();
-        await createDepartmentPage.fillDepartmentDetails(deptName, 0);
-        await createDepartmentPage.saveDepartment(deptName);
+      await manageDepartmentsPage.create_btn.click();
+      await createDepartmentPage.fillDepartmentDetails(deptName, 0);
+      await createDepartmentPage.saveDepartment(deptName);
     });
 
     await test.step('Search for the Created Department', async () => {
-        await manageDepartmentsPage.searchDepartment(deptName);
-        await manageDepartmentsPage.verifySearchResult();
+      await manageDepartmentsPage.searchDepartment(deptName);
+      await manageDepartmentsPage.verifySearchResult();
     });
 
     await test.step('Click Edit Button', async () => {
-        await manageDepartmentsPage.edit_btn.first().click();
+      await manageDepartmentsPage.edit_btn.first().click();
     });
 
     await test.step('Update Department Details', async () => {
-        await createDepartmentPage.departmentName_textbox.clear();
-        await createDepartmentPage.departmentName_textbox.fill(updatedDeptName);
+      await createDepartmentPage.departmentName_textbox.clear();
+      await createDepartmentPage.departmentName_textbox.fill(updatedDeptName);
     });
 
     // This method checks for response code 200 and logs the JSON body
