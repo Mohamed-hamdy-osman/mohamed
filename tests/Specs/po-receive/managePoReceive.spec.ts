@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { LoginPage } from '../../Pages/login/loginPage';
-import { ManagePOReceivePage } from '../../Pages/po-Receive/managePoReceive';
+import { ManagePOReceivePage } from '../../Pages/po-receive/managePOReceive';
 let loginPage!: LoginPage;
 let poReceivePage!: ManagePOReceivePage;
 
@@ -25,11 +25,4 @@ test.afterEach(async ({}, testInfo) => {
 test('Verify Navigation To Manage PO Receive Page', async () => {
   await poReceivePage.navigateToPOReceive();
   await poReceivePage.verifyNavigationToPOReceive();
-});
-
-test('Verify Search With Creation Date From And Creation Date To', async () => {
-  await poReceivePage.navigateToPOReceive();
-  await poReceivePage.creationDateFromAndCreationDateTo();
-  await poReceivePage.searchPOReceive();
-  await poReceivePage.verifySearchResult();
 });

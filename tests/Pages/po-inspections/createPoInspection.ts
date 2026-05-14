@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-export class CreatePOReceiptPage {
+export class CreatePOInspectionPage {
 
   readonly page: Page;
 
@@ -8,8 +8,10 @@ export class CreatePOReceiptPage {
   readonly next_btn: Locator;
   readonly firstRadio_btn: Locator;
   readonly selectAll_checkbox: Locator;
-  readonly receiptQty_inputs: Locator;
-  readonly createPOReceipt_btn: Locator;
+
+  readonly approvedQty_inputs: Locator;
+
+  readonly createPOInspection_btn: Locator;
   readonly save_btn: Locator;
 
   constructor(page: Page) {
@@ -37,33 +39,30 @@ export class CreatePOReceiptPage {
       .locator('input[type="checkbox"]')
       .first();
 
-    this.receiptQty_inputs = page.locator(
-      'input[placeholder="Enter Receipt QTY"]'
+    this.approvedQty_inputs = page.locator(
+      'input[placeholder="Enter Approved Qty"]'
     );
 
-    this.createPOReceipt_btn = page.getByRole(
+    this.createPOInspection_btn = page.getByRole(
       'button',
-      { name: 'Create Po Receipt' }
+      { name: 'Create Po Inspection' }
     );
 
     this.save_btn = page.getByRole(
       'button',
       { name: 'Save' }
     );
-
   }
 
   async waitForLoader() {
 
     await this.page
       .locator('.loader-wrapper')
-      .waitFor({
-        state: 'hidden'
-      });
+      .waitFor({ state: 'hidden' });
 
   }
 
-  async startCreatePOReceipt() {
+  async startCreatePOInspection() {
 
     await this.waitForLoader();
 
@@ -72,7 +71,6 @@ export class CreatePOReceiptPage {
     ).toBeVisible();
 
     await this.create_btn.click();
-
   }
 
   async selectFirstPO() {
@@ -82,7 +80,6 @@ export class CreatePOReceiptPage {
     await this.firstRadio_btn.check();
 
     await this.next_btn.click();
-
   }
 
   async selectLinesAndFillQty() {
@@ -91,24 +88,48 @@ export class CreatePOReceiptPage {
 
     await this.selectAll_checkbox.check();
 
-    await this.receiptQty_inputs
-      .nth(0)
+    const approvedQty_input = this.page.locator(
+      'input[placeholder="Enter Approved Qty"]'
+    );
+
+    await approvedQty_input
+      .first()
+      .waitFor({ state: 'visible' });
+
+    await approvedQty_input
+      .first()
+      .click();
+
+    await approvedQty_input
+      .first()
       .fill('10');
 
-    await this.receiptQty_inputs
-      .nth(1)
-      .fill('10');
+    // مهم جداً عشان السيستم يعمل validation
+    await approvedQty_input
+      .first()
+      .press('Enter');
 
-    await this.receiptQty_inputs
-      .nth(2)
-      .fill('10');
+    await approvedQty_input
+      .first()
+      .press('Tab');
 
+    // click خارج ال input
+    await this.page.mouse.click(50, 50);
 
-    await this.createPOReceipt_btn.click();
+    await this.page.waitForTimeout(2000);
+
+    await this.createPOInspection_btn
+      .scrollIntoViewIfNeeded();
+
+    await expect(
+      this.createPOInspection_btn
+    ).toBeEnabled({ timeout: 15000 });
+
+    await this.createPOInspection_btn.click();
 
   }
 
-  async savePOReceipt() {
+  async savePOInspection() {
 
     await this.waitForLoader();
 
@@ -118,17 +139,15 @@ export class CreatePOReceiptPage {
 
     await this.save_btn.click();
 
-    await this.waitForLoader();
-
-    await expect(
-      this.page
-    ).toHaveURL(
-      /po-receipt/,
+    // تأكيد إن اليوزر ضغط Save فعلاً
+    await expect(this.page).toHaveURL(
+      /po-inspection/,
       {
         timeout: 15000
       }
     );
 
+    // تأكيد إننا رجعنا للـ listing page
     await expect(
       this.create_btn
     ).toBeVisible({

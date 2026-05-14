@@ -20,7 +20,9 @@ export class ManagePOReceivePage {
     this.page = page;
 
     this.supplyChain_btn = page.getByText('Supply Chain');
+
     this.inventory_btn = page.getByText('Inventory');
+
     this.operationsmenu_btn = page.getByText('Operations');
 
     this.PoReceive_menu = page.getByRole('link', {
@@ -28,16 +30,29 @@ export class ManagePOReceivePage {
       exact: true
     });
 
-    this.create_btn = page.getByRole('button', { name: 'Create' });
+    this.create_btn = page.getByRole('button', {
+      name: 'Create'
+    });
 
-    this.filterChevron = page.locator('span.pi-chevron-down');
+    this.filterChevron = page.locator(
+      'span.pi-chevron-down'
+    );
 
-    this.creationFrom_datepicker = page.locator('input[placeholder="Creation Date From"]');
-    this.creationTo_datepicker = page.locator('input[placeholder="Creation Date To"]');
+    this.creationFrom_datepicker = page.locator(
+      'input[placeholder="Creation Date From"]'
+    );
 
-    this.search_btn = page.getByRole('button', { name: 'Search' });
+    this.creationTo_datepicker = page.locator(
+      'input[placeholder="Creation Date To"]'
+    );
 
-    this.searchResultRow = page.locator('tbody tr').first();
+    this.search_btn = page.getByRole('button', {
+      name: 'Search'
+    });
+
+    this.searchResultRow = page
+      .locator('tbody tr')
+      .first();
   }
 
   async navigateToPOReceive() {
@@ -46,7 +61,9 @@ export class ManagePOReceivePage {
 
     await this.inventory_btn.click();
 
-    await this.operationsmenu_btn.waitFor({ state: 'visible' });
+    await this.operationsmenu_btn.waitFor({
+      state: 'visible'
+    });
 
     await this.operationsmenu_btn.click();
 
@@ -58,31 +75,45 @@ export class ManagePOReceivePage {
 
   async verifyNavigationToPOReceive() {
 
-    await expect(this.page).toHaveURL(/po-receive/);
+    await expect(this.page)
+      .toHaveURL(/po-receive/);
 
-    await expect(this.create_btn).toBeVisible();
+    await expect(
+      this.create_btn
+    ).toBeVisible();
   }
 
   async creationDateFromAndCreationDateTo() {
 
     await this.filterChevron.click();
 
-    await this.creationFrom_datepicker.waitFor({ state: 'visible' });
+    await this.creationFrom_datepicker.waitFor({
+      state: 'visible'
+    });
 
-    await this.creationFrom_datepicker.fill('01/02/2025');
+    await this.creationFrom_datepicker.fill(
+      '01/02/2025'
+    );
 
-    await this.creationTo_datepicker.fill('28/02/2025');
+    await this.creationTo_datepicker.fill(
+      '28/02/2025'
+    );
   }
 
-  async searchPOReceive() {
+  async searchPurchaseRequest() {
 
-    await this.search_btn.waitFor({ state: 'visible' });
+    await this.search_btn.waitFor({
+      state: 'visible'
+    });
 
     await this.search_btn.click();
   }
 
   async verifySearchResult() {
 
-    await this.searchResultRow.waitFor({ state: 'visible' });
+    await this.searchResultRow.waitFor({
+      state: 'visible'
+    });
   }
+
 }
