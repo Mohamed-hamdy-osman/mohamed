@@ -10,8 +10,34 @@ This directory contains the test plans for the Zeta application.
     - `Positions/` - Test plans for positions
     - `Grades/` - Test plans for grades
     - `Functions/` - Test plans for functions
-    - `Shifts/` - Test plans for shifts
     - `Employees/` - Test plans for employees
+    - `HierarchicalStructures/` - Test plans for hierarchical structures
+  - `Attendance/` - Test plans for attendance section
+    - `Settings/` - Test plans for attendance settings section
+      - `WorkingDays/` - Test plans for working days
+      - `FingerprintDevices/` - Test plans for fingerprint devices
+      - `OfficialVacations/` - Test plans for official vacations
+      - `RequestTypes/` - Test plans for request types
+      - `Shifts/` - Test plans for shifts
+      - `WorkRegulations/` - Test plans for work regulations
+      - `OverTimeRegulations/` - Test plans for overtime regulations
+    - `Operations/` - Test plans for operations section
+      - `WorkEntries/` - Test plans for work entries
+      - `EmployeeRequests/` - Test plans for employee requests
+      - `DeductionRequests/` - Test plans for deduction requests
+      - `PendingEmployeeRequests/` - Test plans for pending employee requests
+  - `Payroll/` - Test plans for payroll section
+    - `Settings/` - Test plans for payroll settings section
+      - `PayrollConfigurations/` - Test plans for payroll configurations
+      - `PayrollComponents/` - Test plans for payroll components
+      - `TaxExemptions/` - Test plans for tax exemptions
+      - `IncomeTaxBase/` - Test plans for income tax base
+    - `Operation/` - Test plans for payroll operation section
+      - `AssignFixedPayroll/` - Test plans for assign fixed payroll
+      - `AssignVariablePayroll/` - Test plans for assign variable payroll
+      - `PayrollCalculation/` - Test plans for payroll processing
+      - `PayrollDisbursement/` - Test plans for payroll disbursement
+    
 - `login/` - Test plans for the login module
 
 ## Naming Convention

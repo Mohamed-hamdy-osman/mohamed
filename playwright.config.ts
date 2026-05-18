@@ -30,16 +30,33 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    ignoreHTTPSErrors: true,
+    //screenshot: 'only-on-failure', // Take screenshot when test fails
+    //video: 'retain-on-failure',    // Keep video of failed test
+    launchOptions: {
+      slowMo: 500, // Speed up execution while keeping a safe buffer
+    },
+
   },
 
   /* Configure projects for major browsers */
   projects: [
+    // Setup project to authenticate once and save state
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+    },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        // Use prepared auth state.
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
     },
 
-    
+
 
     /* Test against mobile viewports. */
     // {

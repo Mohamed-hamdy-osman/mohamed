@@ -27,7 +27,7 @@ test.describe('Grades Module', () => {
   test('TC01 - Create New Grade and Verify', async ({ page }) => {
     const timestamp = new Date().getTime();
     const gradeTitle = `Grade-${timestamp}`;
-    const gradeCode = `GC-${timestamp}`;
+    const gradeCode = `G-${Math.floor(Math.random() * 9999)}`; 
 
     await test.step('Open Create Dialog', async () => {
       await manageGradesPage.create_btn.click();

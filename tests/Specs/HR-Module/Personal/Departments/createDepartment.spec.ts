@@ -25,17 +25,18 @@ test.describe('Create Department Module', () => {
   });
 
   test('TC01 - Verify Successful Creation of a New Department', async () => {
-    
+    const randomDeptName = `Dept-${Math.floor(Math.random() * 9000) + 1000}`;
+
     await test.step('Click Create Button', async () => {
-        await manageDepartmentsPage.create_btn.click();
+      await manageDepartmentsPage.create_btn.click();
     });
 
     await createDepartmentPage.fillDepartmentDetails(
-        'Engineering Dept', 
-        0
+      randomDeptName,
+      0
     );
 
-    await createDepartmentPage.saveDepartment('Engineering Dept');
+    await createDepartmentPage.saveDepartment(randomDeptName);
 
   });
 
