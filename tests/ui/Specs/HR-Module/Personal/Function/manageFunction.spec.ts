@@ -1,9 +1,5 @@
 import { test } from '@playwright/test';
-<<<<<<< HEAD:tests/Specs/HR-Module/Personal/Function/manageFunction.spec.ts
 import { LoginPage } from '../../../../Pages/login/loginPage';
-=======
-import { LoginPage } from '../../../../Pages/Login/loginPage';
->>>>>>> upstream/main:tests/ui/Specs/HR-Module/Personal/Function/manageFunction.spec.ts
 import { ManageFunctionPage } from '../../../../Pages/HR-Module/Personal/Function/manageFunction';
 
 let loginPage: LoginPage;

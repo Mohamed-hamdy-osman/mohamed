@@ -1,9 +1,5 @@
 import { test } from '@playwright/test';
-<<<<<<< HEAD:tests/Specs/HR-Module/Personal/Position/editPosition.spec.ts
 import { LoginPage } from '../../../../Pages/login/loginPage';
-=======
-import { LoginPage } from '../../../../Pages/Login/loginPage';
->>>>>>> upstream/main:tests/ui/Specs/HR-Module/Personal/Position/editPosition.spec.ts
 import { ManagePositionPage } from '../../../../Pages/HR-Module/Personal/Position/managePosition';
 import { CreatePositionPage } from '../../../../Pages/HR-Module/Personal/Position/createPosition';
 
