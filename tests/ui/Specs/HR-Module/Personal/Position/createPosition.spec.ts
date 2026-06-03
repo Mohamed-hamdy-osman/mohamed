@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
+import { LoginPage } from '../../../../Pages/loginPage';
 import { ManagePositionPage } from '../../../../Pages/HR-Module/Personal/Position/managePosition';
 import { CreatePositionPage } from '../../../../Pages/HR-Module/Personal/Position/createPosition';
 
