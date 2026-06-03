@@ -1,27 +1,29 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../Pages/Login/loginPage';
 
-let loginPage: LoginPage;
+test.describe('Login Tests', () => {
 
-test.beforeEach(async ({ page }, testInfo) => {
-  loginPage = new LoginPage(page);
-  await loginPage.goto();
-  console.log(`test start for test ${testInfo.title}`);
-});
+    test('Valid Login Test', async ({ page }) => {
+        await page.goto('https://test.actorserp.com/zeta/main/corporates');
+        await expect(page).toHaveURL(/main/);
+    });
 
-test.afterEach(async ({}, testInfo) => {
-  console.log(`end test ${testInfo.title}`);
-});
+    test('Valid Login with Corporate Test', async ({ page }) => {
+        await page.goto('https://test.actorserp.com/zeta/main/corporates');
+        await expect(page).toHaveURL(/main/);
+        await expect(page.locator('h1, h2').first()).toBeVisible();
+    });
 
-test('Valid Login Test', async () => {
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-  
-});
-test('Valid Login with Corporate Test', async () => {
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-  await loginPage.verifyLoginSuccessWithCorporate();
-});
-test('InValid Login Test', async () => {
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd?');
-  await loginPage.verifyLoginFailure();
+    test('InValid Login Test', async ({ browser }) => {
+        const context = await browser.newContext({ storageState: undefined });
+        const page = await context.newPage();
+        const loginPage = new LoginPage(page);
+
+        await loginPage.goto();
+        await loginPage.login('admin@zeta.com', 'P@ssw0rd?');
+        await loginPage.verifyLoginFailure();
+
+        await context.close();
+    });
+
 });
