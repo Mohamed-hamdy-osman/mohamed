@@ -11,11 +11,8 @@ test.beforeEach(async ({ page }, testInfo) => {
   loginPage = new LoginPage(page);
   poReceivePage = new ManagePOReceivePage(page);
 
-  await loginPage.goto();
-
   console.log(`Test start: ${testInfo.title}`);
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-  await loginPage.verifyLoginSuccessWithCorporate();
+await loginPage.navigateToApp();
 
 });
 test.afterEach(async ({}, testInfo) => {

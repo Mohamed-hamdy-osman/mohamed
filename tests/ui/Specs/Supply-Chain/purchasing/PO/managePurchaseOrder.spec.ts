@@ -10,10 +10,8 @@ test.setTimeout(60000);
 test.beforeEach(async ({ page }, testInfo) => {
   loginPage = new LoginPage(page);
   purchaseOrderPage = new ManagePurchaseOrderPage(page);
-  await loginPage.goto();
   console.log(`Test start: ${testInfo.title}`);
-  await loginPage.login('admin@zeta.com','P@ssw0rd');
-  await loginPage.verifyLoginSuccessWithCorporate();
+await loginPage.navigateToApp();
 });
 
 test.afterEach(async ({}, testInfo) => {

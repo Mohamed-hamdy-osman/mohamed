@@ -12,7 +12,7 @@ setup('authenticate', async ({ page }) => {
     await loginPage.goto();
     await loginPage.login(
         process.env.LOGIN_USERNAME ?? 'admin@zeta.com',
-        process.env.LOGIN_PASSWORD ?? 'ValidP@ssw0rd'
+        process.env.LOGIN_PASSWORD ?? 'P@ssw0rd'
     );
     await loginPage.verifyLoginSuccessWithCorporate();
 

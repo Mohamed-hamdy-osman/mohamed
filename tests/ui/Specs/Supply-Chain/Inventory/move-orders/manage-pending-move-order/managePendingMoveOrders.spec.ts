@@ -12,9 +12,7 @@ test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
   pendingPage = new ManagePendingMoveOrdersPage(page);
 
-  await loginPage.goto();
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-  await loginPage.verifyLoginSuccessWithCorporate();
+  await loginPage.navigateToApp();
 });
 
 test('Verify Navigation Pending Move Orders', async () => {

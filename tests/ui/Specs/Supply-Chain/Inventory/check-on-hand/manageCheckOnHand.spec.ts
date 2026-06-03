@@ -14,15 +14,11 @@ test.beforeEach(async ({ page }, testInfo) => {
   checkOnHandPage = new ManageCheckOnHandPage(page);
 
   // open system
-  await loginPage.goto();
-
   console.log(`Test start: ${testInfo.title}`);
 
   // login
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-
   // verify login
-  await loginPage.verifyLoginSuccessWithCorporate();
+await loginPage.navigateToApp();
 
 });
 

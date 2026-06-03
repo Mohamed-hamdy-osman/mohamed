@@ -15,7 +15,5 @@ test.beforeEach(async ({ page }) => {
   manageMiscTransactionsPage = new ManageMiscTransactionsPage(page);
   miscellaneousPage = new CreateMiscellaneousTransferPage(page);
 
-  await loginPage.goto();
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-  await loginPage.verifyLoginSuccessWithCorporate();
+  await loginPage.navigateToApp();
 });

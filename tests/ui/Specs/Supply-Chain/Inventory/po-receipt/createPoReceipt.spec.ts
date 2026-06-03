@@ -10,12 +10,7 @@ test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
   managePOReceiptPage = new ManagePOReceiptPage(page);
   createPOReceiptPage = new CreatePOReceiptPage(page);
-  await loginPage.goto();
-  await loginPage.login(
-    'admin@zeta.com',
-    'P@ssw0rd'
-  );
-  await loginPage.verifyLoginSuccessWithCorporate();
+  await loginPage.navigateToApp();
 });
 test('Verify Create PO Receipt', async () => {
   await managePOReceiptPage.navigateToPOReceipt();

@@ -11,12 +11,9 @@ test.beforeEach(async ({ page }, testInfo) => {
   loginPage = new LoginPage(page);
   pageObj = new ManageMoveOrdersSerialPage(page);
 
-  await loginPage.goto();
-
   console.log(`Test start: ${testInfo.title}`);
 
-  await loginPage.login('adminzeta.com', 'P@ssw0rd');
-  await loginPage.verifyLoginSuccessWithCorporate();
+await loginPage.navigateToApp();
 
 });
 

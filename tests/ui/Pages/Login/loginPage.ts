@@ -51,6 +51,17 @@ export class LoginPage {
 
     }
 
+    async navigateToApp() {
+        await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
+        await this.page.waitForLoadState('networkidle');
+        if (await this.logToCorporate_btn.isVisible()) {
+            await Promise.all([
+                this.page.waitForURL(/main/),
+                this.logToCorporate_btn.click(),
+            ]);
+        }
+    }
+
     async verifyLoginFailure() {
         await expect(this.InvalidLoginFailure_locator).toBeVisible();
     }

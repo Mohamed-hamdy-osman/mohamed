@@ -14,9 +14,7 @@ test.describe('Manage Positions Module', () => {
     managePositionPage = new ManagePositionPage(page);
 
     await test.step('Login and Navigate to Positions', async () => {
-      await loginPage.goto();
-      await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-      await loginPage.verifyLoginSuccessWithCorporate(0);
+await loginPage.navigateToApp();
       await managePositionPage.navigateToPositions();
     });
   });

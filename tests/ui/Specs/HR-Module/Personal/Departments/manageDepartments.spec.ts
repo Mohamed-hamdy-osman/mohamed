@@ -14,9 +14,7 @@ test.describe('Manage Departments Module', () => {
     manageDepartmentsPage = new ManageDepartmentsPage(page);
 
     await test.step('Login to the system', async () => {
-      await loginPage.goto();
-      await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-      await loginPage.verifyLoginSuccessWithCorporate();
+      await loginPage.navigateToApp();
     });
 
     console.log(`Test start: ${testInfo.title}`);

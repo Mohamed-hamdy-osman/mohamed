@@ -10,9 +10,7 @@ test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
   transactPage = new ManageTransactOrdersPage(page);
 
-  await loginPage.goto();
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-  await loginPage.verifyLoginSuccessWithCorporate();
+  await loginPage.navigateToApp();
 
 });
 

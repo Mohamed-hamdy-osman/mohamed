@@ -18,13 +18,7 @@ test.beforeEach(async ({ page }) => {
     new ManageMiscTransactionsPage(page);
   miscellaneousPage =
     new CreateMiscellaneousReceiptPage(page);
-  await loginPage.goto();
-  await loginPage.login(
-    'admin@zeta.com',
-    'P@ssw0rd'
-  );
-
-  await loginPage.verifyLoginSuccessWithCorporate();
+  await loginPage.navigateToApp();
 
 });
 

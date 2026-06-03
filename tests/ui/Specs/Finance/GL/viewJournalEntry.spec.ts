@@ -15,7 +15,5 @@ test.beforeEach(async ({ page }) => {
   manageJournalEntryPage = new ManageJournalEntryPage(page);
   viewJournalEntryPage = new ViewJournalEntryPage(page);
 
-  await loginPage.goto();
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-  await loginPage.verifyLoginSuccessWithCorporate();
+  await loginPage.navigateToApp();
 });

@@ -17,9 +17,7 @@ test.describe('Create Function Module', () => {
     createFunctionPage = new CreateFunctionPage(page);
 
     await test.step('Login and Navigate to Functions', async () => {
-      await loginPage.goto();
-      await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-      await loginPage.verifyLoginSuccessWithCorporate(0);
+await loginPage.navigateToApp();
       await manageFunctionPage.navigateToFunctions();
     });
   });

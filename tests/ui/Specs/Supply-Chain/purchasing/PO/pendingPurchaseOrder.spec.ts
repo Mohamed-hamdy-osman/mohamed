@@ -2,7 +2,7 @@ import { test } from '@playwright/test';
 import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { PendingPurchaseOrderPage } from '../../../../Pages/Supply-Chain/Purchasing/PO/pendingPurchaseOrder';
 
-let loginPage!: LoginPage;
+let loginPage: LoginPage;
 let pendingPurchaseOrderPage!: PendingPurchaseOrderPage;
 
 test.setTimeout(60000);
@@ -12,9 +12,7 @@ test.beforeEach(async ({ page }, testInfo) => {
   pendingPurchaseOrderPage = new PendingPurchaseOrderPage(page);
 
   console.log(`Test start: ${testInfo.title}`);
-  await loginPage.goto();
-  await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-  await loginPage.verifyLoginSuccessWithCorporate();
+  await loginPage.navigateToApp();
 });
 
 test.afterEach(async ({}, testInfo) => {

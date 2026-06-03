@@ -17,9 +17,7 @@ test.describe('Create Department Module', () => {
     createDepartmentPage = new CreateDepartmentPage(page);
 
     await test.step('Login and Navigate to Departments', async () => {
-      await loginPage.goto();
-      await loginPage.login('admin@zeta.com', 'P@ssw0rd');
-      await loginPage.verifyLoginSuccessWithCorporate();
+      await loginPage.navigateToApp();
       await manageDepartmentsPage.navigateToDepartments();
     });
   });

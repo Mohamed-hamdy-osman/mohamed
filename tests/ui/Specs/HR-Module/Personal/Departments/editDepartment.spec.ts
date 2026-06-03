@@ -17,10 +17,8 @@ test.describe('Edit Department Module', () => {
     createDepartmentPage = new CreateDepartmentPage(page);
 
     await test.step('Login and Navigate to Departments', async () => {
-      await loginPage.goto();
-      await loginPage.login('admin@zeta.com', 'P@ssw0rd');
       // Using index 0 (V Cola Z) which contains data
-      await loginPage.verifyLoginSuccessWithCorporate(0);
+await loginPage.navigateToApp();
       await manageDepartmentsPage.navigateToDepartments();
     });
   });
