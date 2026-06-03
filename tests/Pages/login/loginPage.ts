@@ -43,8 +43,13 @@ export class LoginPage {
     }
 
     async verifyLoginSuccessWithCorporate() {
+<<<<<<< HEAD
         await expect(this.logToCorporate_btn).toBeVisible({ timeout: 30000 });
         const targetBtn = this.logToCorporate_btn;
+=======
+        await this.page.waitForLoadState('networkidle');
+        await expect(this.logToCorporate_btn).toBeVisible();
+>>>>>>> main
         await Promise.all([
             this.page.waitForURL(/main/),
             targetBtn.waitFor({ state: 'visible', timeout: 60000 }),
