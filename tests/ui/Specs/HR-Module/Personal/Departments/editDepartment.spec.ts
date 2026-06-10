@@ -1,9 +1,7 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManageDepartmentsPage } from '../../../../Pages/HR-Module/Personal/Departments/manageDepartments';
 import { CreateDepartmentPage } from '../../../../Pages/HR-Module/Personal/Departments/createDepartment';
 
-let loginPage: LoginPage;
 let manageDepartmentsPage: ManageDepartmentsPage;
 let createDepartmentPage: CreateDepartmentPage;
 
@@ -12,13 +10,12 @@ test.describe('Edit Department Module', () => {
   test.setTimeout(180000); // 3 minutes
 
   test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
     manageDepartmentsPage = new ManageDepartmentsPage(page);
     createDepartmentPage = new CreateDepartmentPage(page);
 
     await test.step('Login and Navigate to Departments', async () => {
       // Using index 0 (V Cola Z) which contains data
-await loginPage.navigateToApp();
+await page.goto("/");
       await manageDepartmentsPage.navigateToDepartments();
     });
   });

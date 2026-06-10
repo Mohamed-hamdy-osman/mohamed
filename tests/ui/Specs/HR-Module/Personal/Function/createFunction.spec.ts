@@ -1,9 +1,7 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManageFunctionPage } from '../../../../Pages/HR-Module/Personal/Function/manageFunction';
 import { CreateFunctionPage } from '../../../../Pages/HR-Module/Personal/Function/createFunction';
 
-let loginPage: LoginPage;
 let manageFunctionPage: ManageFunctionPage;
 let createFunctionPage: CreateFunctionPage;
 
@@ -12,12 +10,11 @@ test.describe('Create Function Module', () => {
   test.setTimeout(180000); // 3 minutes
 
   test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
     manageFunctionPage = new ManageFunctionPage(page);
     createFunctionPage = new CreateFunctionPage(page);
 
     await test.step('Login and Navigate to Functions', async () => {
-await loginPage.navigateToApp();
+await page.goto("/");
       await manageFunctionPage.navigateToFunctions();
     });
   });

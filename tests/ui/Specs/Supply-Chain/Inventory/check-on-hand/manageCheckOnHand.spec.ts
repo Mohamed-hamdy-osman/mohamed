@@ -1,8 +1,6 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManageCheckOnHandPage } from '../../../../Pages/Supply-Chain/inventory/check-on-hand/manageCheckOnHand';
 
-let loginPage!: LoginPage;
 let checkOnHandPage!: ManageCheckOnHandPage;
 
 test.setTimeout(60000);
@@ -10,7 +8,6 @@ test.setTimeout(60000);
 test.beforeEach(async ({ page }, testInfo) => {
 
   // initialize pages
-  loginPage = new LoginPage(page);
   checkOnHandPage = new ManageCheckOnHandPage(page);
 
   // open system
@@ -18,7 +15,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   // login
   // verify login
-await loginPage.navigateToApp();
+await page.goto("/");
 
 });
 

@@ -1,8 +1,6 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManageDepartmentsPage } from '../../../../Pages/HR-Module/Personal/Departments/manageDepartments';
 
-let loginPage: LoginPage;
 let manageDepartmentsPage: ManageDepartmentsPage;
 
 test.describe('Manage Departments Module', () => {
@@ -10,11 +8,10 @@ test.describe('Manage Departments Module', () => {
   test.setTimeout(120000); // 2 minutes
 
   test.beforeEach(async ({ page }, testInfo) => {
-    loginPage = new LoginPage(page);
     manageDepartmentsPage = new ManageDepartmentsPage(page);
 
     await test.step('Login to the system', async () => {
-      await loginPage.navigateToApp();
+      await page.goto("/");
     });
 
     console.log(`Test start: ${testInfo.title}`);

@@ -1,10 +1,8 @@
 import { test } from '@playwright/test';
 
-import { LoginPage } from '../../../Pages/Login/loginPage';
 import { ManageJournalEntryPage } from '../../../Pages/Finance/GL/manageJournalEntry';
 import { CreateJournalEntryPage } from '../../../Pages/Finance/GL/createJournalEntry';
 
-let loginPage: LoginPage;
 
 let manageJournalEntryPage: ManageJournalEntryPage;
 
@@ -14,7 +12,6 @@ test.setTimeout(120000);
 
 test.beforeEach(async ({ page }) => {
 
-  loginPage = new LoginPage(page);
 
   manageJournalEntryPage =
     new ManageJournalEntryPage(page);
@@ -22,7 +19,7 @@ test.beforeEach(async ({ page }) => {
   createJournalEntryPage =
     new CreateJournalEntryPage(page);
 
-  await loginPage.navigateToApp();
+  await page.goto("/");
 
 });
 

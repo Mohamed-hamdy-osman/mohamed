@@ -1,9 +1,7 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManagePurchaseRequestPage } from '../../../../Pages/Supply-Chain/Purchasing/PR/managePurchaseRequest';
 import { CreatePurchaseRequestPage } from '../../../../Pages/Supply-Chain/Purchasing/PR/createPurchaseRequest';
 
-let loginPage!: LoginPage;
 let managePurchaseRequestPage!: ManagePurchaseRequestPage;
 let createPurchaseRequestPage!: CreatePurchaseRequestPage;
 
@@ -11,11 +9,10 @@ test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
 
-  loginPage = new LoginPage(page);
   managePurchaseRequestPage = new ManagePurchaseRequestPage(page);
   createPurchaseRequestPage = new CreatePurchaseRequestPage(page);
   console.log(`Test start: ${testInfo.title}`);
-await loginPage.navigateToApp();
+await page.goto("/");
 });
 
 test.afterEach(async ({}, testInfo) => {

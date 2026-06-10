@@ -1,11 +1,9 @@
 import { test, expect } from '@playwright/test';
 
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 
 import { ManagePurchaseOrderPage } from '../../../../Pages/Supply-Chain/Purchasing/PO/managePurchaseOrder';
 
 import { CreatePurchaseOrderPage } from '../../../../Pages/Supply-Chain/Purchasing/PO/createPurchaseOrder';
-let loginPage!: LoginPage;
 
 let managePurchaseOrderPage!: ManagePurchaseOrderPage;
 
@@ -15,7 +13,6 @@ test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
 
-  loginPage = new LoginPage(page);
 
   managePurchaseOrderPage =
     new ManagePurchaseOrderPage(page);
@@ -25,7 +22,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   console.log(`Test start: ${testInfo.title}`);
 
-await loginPage.navigateToApp();
+await page.goto("/");
 
   await page
     .locator('.loader-wrapper')
