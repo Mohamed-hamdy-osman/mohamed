@@ -10,7 +10,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'https://test.actorserp.com/zeta',
+    baseURL: 'https://test.actorserp.com/zeta/#/login?tenantId=zeta',
     trace: 'on-first-retry',
   },
 

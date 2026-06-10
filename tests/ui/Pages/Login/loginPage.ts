@@ -8,47 +8,68 @@ export class LoginPage {
     readonly InvalidLoginFailure_locator: Locator;
     readonly logToCorporate_btn: Locator;
 
-    readonly url: string = 'https://test.actorserp.com/zeta';
+    readonly url: string = 'https://test.actorserp.com/zeta/#/login?tenantId=zeta';
 
     constructor(page: Page) {
         this.page = page;
 
-        this.username_tb = page.locator('#loginName');
-        this.password_tb = page.locator('#password');
-        this.login_btn = page.locator('#submit-button');
-        this.InvalidLoginFailure_locator = page.getByText('Password is invalid');
+        this.username_tb = page.getByPlaceholder('username');
+        this.password_tb = page.getByRole('textbox', { name: 'Password' });
 
-       this.logToCorporate_btn = page
-    .getByRole('button', { name: 'Log to Corporate' })
-    .last();
+        // ✅ More resilient — matches any submit-style button
+        this.login_btn = page.getByRole('button', { name: /next|login|sign in/i }).last();
+        this.InvalidLoginFailure_locator = page.getByText('Password is invalid');
+        this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).last();
     }
 
     async goto() {
         await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
+        await this.page.waitForLoadState('networkidle'); // ✅ Wait for full page settle
     }
 
     async login(username: string, password: string) {
-
-        await this.username_tb.waitFor();
+        // Step 1: Enter username and proceed to password page
+        await this.username_tb.waitFor({ state: 'visible' });
         await this.username_tb.fill(username);
         await this.login_btn.click();
-        await this.password_tb.waitFor();
+
+        // Step 2: Wait for password page to load, then fill
+        await this.password_tb.waitFor({ state: 'visible' }); // ✅ Ensures page 2 is ready
         await this.password_tb.fill(password);
         await this.login_btn.click();
+    }
+
+    async verifyLoginSuccessWithCorporate() {
+        // Wait for either /main redirect or the corporate button to appear
+        await this.page.waitForLoadState('domcontentloaded');
+
+        // Dismiss alert dialog if present
+        const alertDialog = this.page.getByRole('alertdialog');
+        try {
+            await alertDialog.waitFor({ state: 'visible', timeout: 5000 });
+            const closeBtn = alertDialog.locator('button').first();
+            await closeBtn.click();
+        } catch {
+            // No dialog present — continue normally
+        }
+
+        // If already redirected to /main, skip the corporate button click
+        if (this.page.url().includes('/main')) return;
+
+        // Wait for corporate button then click
+        await expect(this.logToCorporate_btn).toBeVisible({ timeout: 30000 });
+        await Promise.all([
+            this.page.waitForURL(/main/, { timeout: 30000 }),
+            this.logToCorporate_btn.click(),
+        ]);
     }
 
     async verifyLoginSuccess() {
         await expect(this.page.locator('tbody tr').first()).toBeVisible({ timeout: 30000 });
     }
 
-    async verifyLoginSuccessWithCorporate() {
-        await this.page.waitForLoadState('networkidle');
-        await expect(this.logToCorporate_btn).toBeVisible();
-        await Promise.all([
-            this.page.waitForURL(/main/),
-            this.logToCorporate_btn.click(),
-        ]);
-
+    async verifyLoginFailure() {
+        await expect(this.InvalidLoginFailure_locator).toBeVisible({ timeout: 10000 });
     }
 
     async navigateToApp() {
@@ -60,9 +81,5 @@ export class LoginPage {
                 this.logToCorporate_btn.click(),
             ]);
         }
-    }
-
-    async verifyLoginFailure() {
-        await expect(this.InvalidLoginFailure_locator).toBeVisible();
     }
 }
