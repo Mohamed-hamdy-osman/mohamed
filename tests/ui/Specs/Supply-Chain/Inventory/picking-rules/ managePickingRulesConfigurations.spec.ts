@@ -1,21 +1,19 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManagePickingRulesConfigurationsPage } from '../../../../Pages/Supply-Chain/inventory/picking-rules/ managePickingRulesConfigurations';
 
 
-let loginPage!: LoginPage;
 let pickingRulesPage!: ManagePickingRulesConfigurationsPage;
 
 test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
 
-  loginPage = new LoginPage(page);
   pickingRulesPage = new ManagePickingRulesConfigurationsPage(page);
+
+  await page.goto('/zeta');
 
   console.log(`Test start: ${testInfo.title}`);
 
-await loginPage.navigateToApp();
 
 });
 

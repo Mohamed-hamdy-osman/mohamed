@@ -1,20 +1,18 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManageItemsPage } from '../../../../Pages/Supply-Chain/inventory/items/ manageItems';
 
 
-let loginPage!: LoginPage;
 let itemsPage!: ManageItemsPage;
 test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
 
-  loginPage = new LoginPage(page);
   itemsPage = new ManageItemsPage(page);
+
+  await page.goto('/zeta');
 
   console.log(`Test start: ${testInfo.title}`);
 
-await loginPage.navigateToApp();
 
 });
 

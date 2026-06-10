@@ -1,10 +1,8 @@
 import { test } from '@playwright/test';
 
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManageMiscTransactionsPage } from '../../../../Pages/Supply-Chain/inventory/miscellaneous-transactions/manageMiscelliniousTransactions';
 import { CreateMiscellaneousReceiptPage } from '../../../../Pages/Supply-Chain/inventory/miscellaneous-transactions/createMiscllaneousReceipt';
 
-let loginPage!: LoginPage;
 
 let manageMiscTransactionsPage!:
 ManageMiscTransactionsPage;
@@ -13,12 +11,12 @@ let miscellaneousPage!:
 CreateMiscellaneousReceiptPage;
 test.setTimeout(90000);
 test.beforeEach(async ({ page }) => {
-  loginPage = new LoginPage(page);
   manageMiscTransactionsPage =
     new ManageMiscTransactionsPage(page);
   miscellaneousPage =
     new CreateMiscellaneousReceiptPage(page);
-  await loginPage.navigateToApp();
+  await page.goto('/zeta');
+
 
 });
 

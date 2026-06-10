@@ -1,8 +1,6 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManageCheckOnHandPage } from '../../../../Pages/Supply-Chain/inventory/check-on-hand/manageCheckOnHand';
 
-let loginPage!: LoginPage;
 let checkOnHandPage!: ManageCheckOnHandPage;
 
 test.setTimeout(60000);
@@ -10,15 +8,16 @@ test.setTimeout(60000);
 test.beforeEach(async ({ page }, testInfo) => {
 
   // initialize pages
-  loginPage = new LoginPage(page);
   checkOnHandPage = new ManageCheckOnHandPage(page);
 
   // open system
+  await page.goto('/zeta');
+
   console.log(`Test start: ${testInfo.title}`);
 
   // login
+
   // verify login
-await loginPage.navigateToApp();
 
 });
 

@@ -1,10 +1,8 @@
 import { test } from '@playwright/test';
 
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManagePOReceivePage } from '../../../../Pages/Supply-Chain/inventory/po-receive/managePoReceive';
 import { CreatePOReceivePage } from '../../../../Pages/Supply-Chain/inventory/po-receive/createPoReceive';
 
-let loginPage: LoginPage;
 
 let managePOReceivePage: ManagePOReceivePage;
 
@@ -14,7 +12,6 @@ test.setTimeout(120000);
 
 test.beforeEach(async ({ page }) => {
 
-  loginPage = new LoginPage(page);
 
   managePOReceivePage =
     new ManagePOReceivePage(page);
@@ -22,7 +19,9 @@ test.beforeEach(async ({ page }) => {
   createPOReceivePage =
     new CreatePOReceivePage(page);
 
-  await loginPage.navigateToApp();
+  await page.goto('/zeta');
+
+
 
 });
 

@@ -1,17 +1,14 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { PendingPurchaseRequestPage } from '../../../../Pages/Supply-Chain/Purchasing/PR/pendingPurchaseRequest';
 
-let loginPage: LoginPage;
 let pendingPurchaseRequestPage: PendingPurchaseRequestPage;
 
 test.setTimeout(60000);
 test.beforeEach(async ({ page }, testInfo) => {
-  loginPage = new LoginPage(page);
   pendingPurchaseRequestPage = new PendingPurchaseRequestPage(page);
 
   console.log(`Test start: ${testInfo.title}`);
-  await loginPage.navigateToApp();
+  await page.goto('/zeta');
 });
 
 test.afterEach(async ({}, testInfo) => {

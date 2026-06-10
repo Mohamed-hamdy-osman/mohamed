@@ -1,9 +1,7 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManagePositionPage } from '../../../../Pages/HR-Module/Personal/Position/managePosition';
 import { CreatePositionPage } from '../../../../Pages/HR-Module/Personal/Position/createPosition';
 
-let loginPage: LoginPage;
 let managePositionPage: ManagePositionPage;
 let createPositionPage: CreatePositionPage;
 
@@ -12,14 +10,11 @@ test.describe('Create Position Module', () => {
   test.setTimeout(180000); // 3 minutes
 
   test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
     managePositionPage = new ManagePositionPage(page);
     createPositionPage = new CreatePositionPage(page);
 
-    await test.step('Login and Navigate to Positions', async () => {
-await loginPage.navigateToApp();
+      await page.goto('/zeta');
       await managePositionPage.navigateToPositions();
-    });
   });
 
   test('TC01 - Create New Position and Verify', async () => {

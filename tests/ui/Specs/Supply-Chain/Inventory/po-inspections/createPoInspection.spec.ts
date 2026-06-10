@@ -1,10 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-import { LoginPage } from '../../../../Pages/Login/loginPage';
 import { ManagePOInspectionPage } from '../../../../Pages/Supply-Chain/inventory/po-inspections/managePoInspection';
 import { CreatePOInspectionPage } from '../../../../Pages/Supply-Chain/inventory/po-inspections/createPoInspection';
 
-let loginPage: LoginPage;
 
 let managePOInspectionPage: ManagePOInspectionPage;
 
@@ -14,7 +12,6 @@ test.setTimeout(90000);
 
 test.beforeEach(async ({ page }) => {
 
-  loginPage = new LoginPage(page);
 
   managePOInspectionPage =
     new ManagePOInspectionPage(page);
@@ -22,7 +19,9 @@ test.beforeEach(async ({ page }) => {
   createPOInspectionPage =
     new CreatePOInspectionPage(page);
 
-  await loginPage.navigateToApp();
+  await page.goto('/zeta');
+
+
 
 });
 

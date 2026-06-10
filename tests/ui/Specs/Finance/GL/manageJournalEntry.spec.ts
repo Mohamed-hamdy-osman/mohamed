@@ -1,20 +1,18 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../../../Pages/Login/loginPage';
 import { ManageJournalEntryPage } from '../../../Pages/Finance/GL/manageJournalEntry';
 
 
-let loginPage!: LoginPage;
 let manageJournalEntryPage!: ManageJournalEntryPage;
 
 test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
 
-  loginPage = new LoginPage(page);
   manageJournalEntryPage = new ManageJournalEntryPage(page);
 
+  await page.goto('/zeta');
+
   console.log(`Test start: ${testInfo.title}`);
-await loginPage.navigateToApp();
   await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
 });
 
