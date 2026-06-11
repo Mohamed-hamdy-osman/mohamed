@@ -95,13 +95,31 @@ export class PendingPurchaseOrderPage {
     await this.rejectReason_btn.click();
     await expect(this.rejectedNotification).toBeVisible({ timeout: 10000 });
   }
+    async InvalidRejectPurchaseOrderComment() {
+    await expect(this.firstRow).toBeVisible();
+    await this.view_btn.click();
+    await this.reject_btn.first().click();
+    await expect(this.reject_reason).toBeVisible();
+    await this.reject_reason.fill('Not needed at the moment ');
+    await this.rejectReason_btn.click();
+    await expect(this.rejectedNotification).toBeVisible({ timeout: 10000 });
+  }
 
   async returnPurchaseOrder() {
     await expect(this.firstRow).toBeVisible();
     await this.view_btn.click();
     await this.return_btn.first().click();
     await expect(this.return_reason).toBeVisible();
-    await this.return_reason.fill('Need more information');
+    await this.return_reason.fill('Still Need To Handle It From Dev Side');
+    await this.returnReason_btn.click();
+    await expect(this.returnedNotification).toBeVisible({ timeout: 10000 });
+  }
+  async InvalidReturnPurchaseOrderComment() {
+    await expect(this.firstRow).toBeVisible();
+    await this.view_btn.click();
+    await this.return_btn.first().click();
+    await expect(this.return_reason).toBeVisible();
+    await this.return_reason.fill('Still Need To Handle It From Dev Side');
     await this.returnReason_btn.click();
     await expect(this.returnedNotification).toBeVisible({ timeout: 10000 });
   }

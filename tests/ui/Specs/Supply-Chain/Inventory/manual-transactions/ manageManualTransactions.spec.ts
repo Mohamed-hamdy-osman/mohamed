@@ -3,9 +3,9 @@ import { ManageManualTransactionsPage } from '../../../../Pages/Supply-Chain/inv
 
 let pageObj!: ManageManualTransactionsPage;
 
-//test.setTimeout(60000);
+test.setTimeout(60000);
 
-//test.beforeEach(async ({ page }, testInfo) => {
+test.beforeEach(async ({ page }, testInfo) => {
 
   pageObj = new ManageManualTransactionsPage(page);
 
@@ -13,10 +13,9 @@ let pageObj!: ManageManualTransactionsPage;
   console.log(`Test start: ${testInfo.title}`);
 });
 
-//test.afterEach(async ({}, testInfo) => {
-  //console.log(`Test end: ${testInfo.title}`);
-//});
-//test('Verify Navigation To Manual Transactions Page', async () => {
-  //await pageObj.navigateToManualTransactions();
-  //await pageObj.verifyNavigationToManualTransactions();
-//});
+test.afterEach(async ({}, testInfo) => {
+console.log(`Test end: ${testInfo.title}`);
+});
+test('Verify Navigation To Manual Transactions Page', async () => {
+await pageObj.navigateToManualTransactions();
+});

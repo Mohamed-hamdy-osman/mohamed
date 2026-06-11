@@ -33,9 +33,16 @@ test('Verify Reject Pending Purchase Order', async () => {
   await pendingPurchaseOrderPage.navigateToPendingPurchaseOrders();
   await pendingPurchaseOrderPage.rejectPurchaseOrder();
 });
-
+test('Verify Invalid Reject Pending Purchase Order Comment', async () => {
+  await pendingPurchaseOrderPage.navigateToPendingPurchaseOrders();
+  await pendingPurchaseOrderPage.InvalidRejectPurchaseOrderComment();
+});
 
 test('Verify Return Pending Purchase Order', async () => {
   await pendingPurchaseOrderPage.navigateToPendingPurchaseOrders();
   await pendingPurchaseOrderPage.returnPurchaseOrder();
+});
+test('Verify Invalid Return Pending Purchase Order Comment', async () => {
+  await pendingPurchaseOrderPage.navigateToPendingPurchaseOrders();
+  await pendingPurchaseOrderPage.InvalidReturnPurchaseOrderComment();
 });
