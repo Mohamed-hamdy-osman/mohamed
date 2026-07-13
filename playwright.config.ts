@@ -25,6 +25,12 @@ export default defineConfig({
         storageState: '.auth/user.json',
       },
       dependencies: ['setup'],
+      testIgnore: /.*\/api\/.*/,
+    },
+    {
+      name: 'api',
+      testMatch: /.*\/api\/.*\.spec\.ts/,
+      dependencies: ['setup'],
     },
 
     /* Test against mobile viewports. */
