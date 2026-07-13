@@ -9,7 +9,8 @@ test.beforeEach(async ({ page }) => {
 
   pendingPage = new ManagePendingMoveOrdersPage(page);
 
-  await page.goto('/zeta');
+  await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
 });
 
 test('Verify Navigation Pending Move Orders', async () => {

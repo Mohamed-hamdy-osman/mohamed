@@ -10,14 +10,16 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   manageJournalEntryPage = new ManageJournalEntryPage(page);
 
-  await page.goto('/zeta');
-
+  await page.goto('/zeta/choose-module');
+await page.waitForLoadState('networkidle');
   console.log(`Test start: ${testInfo.title}`);
   await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
 });
 
-test.afterEach(async ({}, testInfo) => {
-  console.log(`Test end: ${testInfo.title}`);
+test.afterEach(async ({ page }, testInfo) => {
+    await page.goto('/zeta/choose-module');
+    await page.waitForLoadState('networkidle');
+    console.log(`Test end: ${testInfo.title}`);
 });
 
 test('Verify Navigation To Manage Journal Entries Page', async ({ page }) => {

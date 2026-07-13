@@ -15,7 +15,8 @@ test.beforeEach(async ({ page }) => {
     new ManageMiscTransactionsPage(page);
   miscellaneousPage =
     new CreateMiscellaneousReceiptPage(page);
-  await page.goto('/zeta');
+  await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
 
 
 });

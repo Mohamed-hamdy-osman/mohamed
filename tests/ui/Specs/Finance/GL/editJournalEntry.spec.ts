@@ -12,5 +12,6 @@ test.beforeEach(async ({ page }) => {
   manageJournalEntryPage = new ManageJournalEntryPage(page);
   editJournalEntryPage = new EditJournalEntryPage(page);
 
-  await page.goto('/zeta');
+  await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
 });

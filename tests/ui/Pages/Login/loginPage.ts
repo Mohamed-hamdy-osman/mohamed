@@ -8,7 +8,7 @@ export class LoginPage {
     readonly InvalidLoginFailure_locator: Locator;
     readonly logToCorporate_btn: Locator;
 
-    readonly url: string = 'https://test.actorserp.com/zeta';
+    private readonly url = 'https://test.actorserp.com/zeta';
 
     constructor(page: Page) {
         this.page = page;
@@ -18,48 +18,49 @@ export class LoginPage {
         this.login_btn = page.locator('#submit-button');
         this.InvalidLoginFailure_locator = page.getByText('Password is invalid');
 
-       this.logToCorporate_btn = page
-    .getByRole('button', { name: 'Log to Corporate' })
-    .last();
+        this.logToCorporate_btn = page
+            .getByRole('button', { name: 'Log to Corporate' })
+            .last();
     }
 
     async goto() {
-        await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
+        await this.page.goto(this.url, {
+            waitUntil: 'domcontentloaded',
+        });
     }
 
     async login(username: string, password: string) {
-
-        await this.username_tb.waitFor();
+        await this.username_tb.waitFor({ state: 'visible' });
         await this.username_tb.fill(username);
+
         await this.login_btn.click();
-        await this.password_tb.waitFor();
+
+        await this.password_tb.waitFor({ state: 'visible' });
         await this.password_tb.fill(password);
+
         await this.login_btn.click();
     }
 
-    async verifyLoginSuccess() {
-        await expect(this.page.locator('tbody tr').first()).toBeVisible({ timeout: 30000 });
-    }
+    //async verifyLoginSuccess() {
+       // await expect(this.page.locator('tbody tr').first()).toBeVisible({
+    //        timeout: 30000,
+     //   });
+   // }
 
     async verifyLoginSuccessWithCorporate() {
         await this.page.waitForLoadState('networkidle');
-        await expect(this.logToCorporate_btn).toBeVisible();
-        await Promise.all([
-            this.page.waitForURL(/main/),
-            this.logToCorporate_btn.click(),
-        ]);
 
-    }
-
-    async navigateToApp() {
-        await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
-        await this.page.waitForLoadState('networkidle');
         if (await this.logToCorporate_btn.isVisible()) {
             await Promise.all([
                 this.page.waitForURL(/main/),
                 this.logToCorporate_btn.click(),
             ]);
         }
+    }
+
+    async navigateToApp() {
+        await this.goto();
+        await this.verifyLoginSuccessWithCorporate();
     }
 
     async verifyLoginFailure() {

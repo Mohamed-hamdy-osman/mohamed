@@ -49,6 +49,7 @@ export class CreatePurchaseRequestPage {
   async selectOption(dropdown: Locator, index: number) {
     await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
     await dropdown.waitFor({ state: 'visible' });
+    await expect(dropdown).not.toHaveAttribute('aria-disabled', 'true', { timeout: 20000 });
     await dropdown.click();
     const panel = this.page.locator('.p-overlay:visible').last();
     await panel.waitFor({ state: 'visible' });
@@ -76,33 +77,38 @@ export class CreatePurchaseRequestPage {
 
   async fillPurchaseLine(line: any) {
 
-    await this.selectOption(this.type_dropdown, line.typeIndex);
+    const dialog = this.page.locator('.p-dialog:visible');
 
-    if (line.isService) {
-      await this.selectOption(this.serviceName_dropdown, 0);
-      await this.description_textbox.fill('service');
-      await this.selectOption(this.costCenter_dropdown, 0);
-      await this.unitPrice_textbox.fill('100');
-    } else {
-      await this.selectOption(this.group_dropdown, line.groupIndex);
-      await this.selectOption(this.subGroup_dropdown, line.subGroupIndex);
-      await this.selectOption(this.item_dropdown, line.itemIndex);
-      await this.selectOption(this.uom_dropdown, line.uomIndex);
+    const type_dd       = dialog.getByRole('combobox').nth(0);
+    const group_dd      = dialog.getByRole('combobox').nth(1);
+    const subGroup_dd   = dialog.getByRole('combobox').nth(2);
+    const item_dd       = dialog.getByRole('combobox').nth(3);
+    const uom_dd        = dialog.getByRole('combobox').nth(4);
+    const costCenter_dd = dialog.getByRole('combobox').nth(5);
 
-      if (line.withCostCenter) {
-        await this.selectOption(this.costCenter_dropdown, 0);
-      }
+    await this.selectOption(type_dd, line.typeIndex);
+    await this.selectOption(group_dd, line.groupIndex);
+    await this.selectOption(subGroup_dd, line.subGroupIndex);
+    await this.selectOption(item_dd, line.itemIndex);
+    await this.selectOption(uom_dd, line.uomIndex);
 
-      await this.quantity_textbox.fill(line.quantity);
-      await this.unitPrice_textbox.fill(line.price);
+    const isCostCenterDisabled = await costCenter_dd.getAttribute('aria-disabled');
+    if (isCostCenterDisabled !== 'true') {
+      await this.selectOption(costCenter_dd, 0);
     }
+
+    await dialog.getByPlaceholder('Enter Quantity').fill(line.quantity);
+    await dialog.getByPlaceholder('Enter Unit Price').fill(line.price);
   }
 
 
   async saveLine() {
-    await expect(this.saveLine_btn).toBeEnabled({ timeout: 10000 });
-    await this.saveLine_btn.click();
-    // ✅ ENHANCED — wait for dialog to close after saving
+    const dialog = this.page.locator('.p-dialog:visible');
+    const saveLine_btn = dialog.getByRole('button', { name: 'Save', exact: true });
+    await expect(saveLine_btn).toBeEnabled({ timeout: 10000 });
+    await saveLine_btn.click();
+    await this.page.waitForTimeout(2000);
+    await this.page.screenshot({ path: 'debug-after-save.png', fullPage: true });
     await this.page.locator('.p-dialog').waitFor({ state: 'hidden', timeout: 15000 });
   }
 
@@ -140,10 +146,6 @@ export class CreatePurchaseRequestPage {
     // Select Cost Center (first available)
     const costCenter_dropdown = dialog.getByRole('combobox').nth(2);
     await this.selectOption(costCenter_dropdown, 0);
-
-    // Select Tax (first available)
-    const tax_dropdown = dialog.getByRole('combobox').nth(3);
-    await this.selectOption(tax_dropdown, 0);
 
     // Enter Unit Price
     const unitPrice_input = dialog.getByPlaceholder('Enter Unit Price');

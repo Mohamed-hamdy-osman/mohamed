@@ -10,12 +10,15 @@ test.setTimeout(180000);
 test.beforeEach(async ({ page }, testInfo) => {
     managePurchaseOrderPage = new ManagePurchaseOrderPage(page);
     createPurchaseOrderPage = new CreatePurchaseOrderPage(page);
-    await page.goto('/zeta');
+    await page.goto('/zeta/choose-module');
+await page.waitForLoadState('networkidle');
     console.log(`Test start: ${testInfo.title}`);
     await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
 });
 
-test.afterEach(async ({ }, testInfo) => {
+test.afterEach(async ({ page }, testInfo) => {
+    await page.goto('/zeta/choose-module');
+    await page.waitForLoadState('networkidle');
     console.log(`Test end: ${testInfo.title}`);
 });
 
@@ -122,14 +125,13 @@ test('Verify Create Purchase Order Expenses', async ({ page }) => {
 });
 
 // ✅ TEST 1: Miscellaneous
-test.only('Verify Create Purchase Order Service Line Miscellaneous', async ({ page }) => {
+test('Verify Create Purchase Order Service Line Miscellaneous', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
     await expect(managePurchaseOrderPage.create_btn).toBeVisible({ timeout: 15000 });
     await managePurchaseOrderPage.create_btn.click();
     await expect(page).toHaveURL(/add-purchase-order/);
 
-    // Step 1 & 2: Fill header fields
     await createPurchaseOrderPage.fillRequiredFields();
 
     // Step 3: Click Add Line
@@ -182,7 +184,7 @@ test.only('Verify Create Purchase Order Service Line Miscellaneous', async ({ pa
 });
 
 // ✅ TEST 2: Freight — Fixed to use nth(1) selector for Service Name (Freight = index 1)
-test.only('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
+test('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
     await expect(managePurchaseOrderPage.create_btn).toBeVisible({ timeout: 15000 });
@@ -242,7 +244,7 @@ test.only('Verify Create Purchase Order Service Line Freight', async ({ page }) 
 });
 
 // ✅ TEST 3: Two Lines — Miscellaneous + Freight
-test.only('Verify Create Purchase Order Service Lines Freight & Miscellaneous', async ({ page }) => {
+test('Verify Create Purchase Order Service Lines Freight & Miscellaneous', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
     await expect(managePurchaseOrderPage.create_btn).toBeVisible({ timeout: 15000 });

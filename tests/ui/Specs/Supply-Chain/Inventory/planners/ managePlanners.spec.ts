@@ -9,7 +9,8 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   plannersPage = new ManagePlannersPage(page);
 
-  await page.goto('/zeta');
+  await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
 
   console.log(`Test start: ${testInfo.title}`);
 

@@ -10,7 +10,8 @@ test.describe('Manage Functions Module', () => {
   test.beforeEach(async ({ page }) => {
     manageFunctionPage = new ManageFunctionPage(page);
 
-      await page.goto('/zeta');
+      await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
       await manageFunctionPage.navigateToFunctions();
   });
 

@@ -13,7 +13,8 @@ test.describe('Edit Department Module', () => {
     manageDepartmentsPage = new ManageDepartmentsPage(page);
     createDepartmentPage = new CreateDepartmentPage(page);
 
-      await page.goto('/zeta');
+      await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
       // Using index 0 (V Cola Z) which contains data
       await manageDepartmentsPage.navigateToDepartments();
   });

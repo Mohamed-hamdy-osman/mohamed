@@ -7,7 +7,8 @@ test.setTimeout(90000);
 test.beforeEach(async ({ page }) => {
   managePOReceiptPage = new ManagePOReceiptPage(page);
   createPOReceiptPage = new CreatePOReceiptPage(page);
-  await page.goto('/zeta');
+  await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
 });
 test('Verify Create PO Receipt', async () => {
   await managePOReceiptPage.navigateToPOReceipt();

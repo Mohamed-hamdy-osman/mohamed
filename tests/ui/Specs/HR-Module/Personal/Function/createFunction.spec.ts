@@ -13,7 +13,8 @@ test.describe('Create Function Module', () => {
     manageFunctionPage = new ManageFunctionPage(page);
     createFunctionPage = new CreateFunctionPage(page);
 
-      await page.goto('/zeta');
+      await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
       await manageFunctionPage.navigateToFunctions();
   });
 

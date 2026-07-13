@@ -1,7 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 
-export const STORAGE_STATE = 'playwright/.auth/user.json';
-
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
@@ -9,6 +7,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+
   use: {
     baseURL: 'https://test.actorserp.com',
     trace: 'on-first-retry',
@@ -27,8 +26,6 @@ export default defineConfig({
       },
       dependencies: ['setup'],
     },
-
-    
 
     /* Test against mobile viewports. */
     // {

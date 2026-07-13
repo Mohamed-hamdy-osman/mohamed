@@ -10,7 +10,8 @@ test.describe('Manage Positions Module', () => {
   test.beforeEach(async ({ page }) => {
     managePositionPage = new ManagePositionPage(page);
 
-      await page.goto('/zeta');
+      await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
       await managePositionPage.navigateToPositions();
   });
 

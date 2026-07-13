@@ -6,14 +6,15 @@ test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
   purchaseRequestPage = new ManagePurchaseRequestPage(page);
-
-  await page.goto('/zeta');
-
+  await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
   console.log(`Test start: ${testInfo.title}`);
 });
 
-test.afterEach(async ({}, testInfo) => {
-  console.log(`Test end: ${testInfo.title}`);
+test.afterEach(async ({ page }, testInfo) => {
+    await page.goto('/zeta/choose-module');
+    await page.waitForLoadState('networkidle');
+    console.log(`Test end: ${testInfo.title}`);
 });
 
 test('Verify Navigation To Manage Purchase Requests Page', async () => {

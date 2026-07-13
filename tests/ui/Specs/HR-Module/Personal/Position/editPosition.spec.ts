@@ -13,7 +13,8 @@ test.describe('Edit Position Module', () => {
     managePositionPage = new ManagePositionPage(page);
     createPositionPage = new CreatePositionPage(page);
 
-      await page.goto('/zeta');
+      await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
       await managePositionPage.navigateToPositions();
   });
 

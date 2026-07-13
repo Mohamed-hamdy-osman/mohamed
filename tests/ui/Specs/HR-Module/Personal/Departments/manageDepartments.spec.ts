@@ -10,14 +10,16 @@ test.describe('Manage Departments Module', () => {
   test.beforeEach(async ({ page }, testInfo) => {
     manageDepartmentsPage = new ManageDepartmentsPage(page);
 
-      await page.goto('/zeta');
-
+      await page.goto('/zeta/choose-module');
+await page.waitForLoadState('networkidle');
     console.log(`Test start: ${testInfo.title}`);
   });
 
-  test.afterEach(async ({}, testInfo) => {
+  test.afterEach(async ({ page }, testInfo) => {
+    await page.goto('/zeta/choose-module');
+    await page.waitForLoadState('networkidle');
     console.log(`Test end: ${testInfo.title}`);
-  });
+});
 
   test('TC01 - Verify Navigation To Manage Departments Page', async () => {
     await manageDepartmentsPage.navigateToDepartments();

@@ -11,8 +11,8 @@ test.beforeEach(async ({ page }, testInfo) => {
   checkOnHandPage = new ManageCheckOnHandPage(page);
 
   // open system
-  await page.goto('/zeta');
-
+  await page.goto('/zeta/choose-module');
+await page.waitForLoadState('networkidle');
   console.log(`Test start: ${testInfo.title}`);
 
   // login
@@ -21,10 +21,10 @@ test.beforeEach(async ({ page }, testInfo) => {
 
 });
 
-test.afterEach(async ({}, testInfo) => {
-
-  console.log(`Test end: ${testInfo.title}`);
-
+test.afterEach(async ({ page }, testInfo) => {
+    await page.goto('/zeta/choose-module');
+    await page.waitForLoadState('networkidle');
+    console.log(`Test end: ${testInfo.title}`);
 });
 
 test('Verify Navigation To Check-On Hand Page', async () => {

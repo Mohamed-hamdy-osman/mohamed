@@ -8,7 +8,8 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   unitPage = new ManageUnitOfMeasurePage(page);
 
-  await page.goto('/zeta');
+  await page.goto('/zeta/choose-module');
+  await page.waitForLoadState('networkidle');
 
   console.log(`Test start: ${testInfo.title}`);
 
