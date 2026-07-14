@@ -6,7 +6,7 @@ import { CreateMiscellaneousIssuePage } from '../../../../Pages/Supply-Chain/inv
 let manageMiscTransactionsPage!: ManageMiscTransactionsPage;
 let miscellaneousPage!: CreateMiscellaneousIssuePage;
 
-test.setTimeout(90000);
+test.setTimeout(60000);
 
 test.beforeEach(async ({ page }) => {
   manageMiscTransactionsPage = new ManageMiscTransactionsPage(page);

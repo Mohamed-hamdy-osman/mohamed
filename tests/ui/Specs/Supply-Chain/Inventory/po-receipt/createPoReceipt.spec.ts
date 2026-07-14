@@ -3,7 +3,7 @@ import { ManagePOReceiptPage } from '../../../../Pages/Supply-Chain/inventory/po
 import { CreatePOReceiptPage } from '../../../../Pages/Supply-Chain/inventory/po-receipt/createPoReceipt';
 let managePOReceiptPage: ManagePOReceiptPage;
 let createPOReceiptPage: CreatePOReceiptPage;
-test.setTimeout(90000);
+test.setTimeout(60000);
 test.beforeEach(async ({ page }) => {
   managePOReceiptPage = new ManagePOReceiptPage(page);
   createPOReceiptPage = new CreatePOReceiptPage(page);

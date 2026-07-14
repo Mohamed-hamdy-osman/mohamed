@@ -7,7 +7,7 @@ let createDepartmentPage: CreateDepartmentPage;
 
 test.describe('Create Department Module', () => {
 
-  test.setTimeout(120000);
+  test.setTimeout(60000);
 
   test.beforeEach(async ({ page }) => {
     manageDepartmentsPage = new ManageDepartmentsPage(page);

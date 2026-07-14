@@ -7,7 +7,7 @@ let createFunctionPage: CreateFunctionPage;
 
 test.describe('Edit Function Module', () => {
 
-  test.setTimeout(180000); // 3 minutes
+  test.setTimeout(60000);
 
   test.beforeEach(async ({ page }) => {
     manageFunctionPage = new ManageFunctionPage(page);

@@ -5,7 +5,7 @@ let managePositionPage: ManagePositionPage;
 
 test.describe('Manage Positions Module', () => {
 
-  test.setTimeout(180000); // 3 minutes
+  test.setTimeout(60000);
 
   test.beforeEach(async ({ page }) => {
     managePositionPage = new ManagePositionPage(page);

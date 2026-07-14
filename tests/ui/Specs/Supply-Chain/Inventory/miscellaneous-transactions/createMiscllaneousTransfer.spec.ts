@@ -6,7 +6,7 @@ import { CreateMiscellaneousTransferPage } from '../../../../Pages/Supply-Chain/
 let manageMiscTransactionsPage!: ManageMiscTransactionsPage;
 let miscellaneousPage!: CreateMiscellaneousTransferPage;
 
-test.setTimeout(90000);
+test.setTimeout(60000);
 
 test.beforeEach(async ({ page }) => {
   manageMiscTransactionsPage = new ManageMiscTransactionsPage(page);

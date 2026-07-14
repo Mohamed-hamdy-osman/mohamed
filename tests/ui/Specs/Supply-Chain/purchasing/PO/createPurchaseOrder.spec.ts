@@ -5,7 +5,7 @@ import { CreatePurchaseOrderPage } from '../../../../Pages/Supply-Chain/Purchasi
 let managePurchaseOrderPage!: ManagePurchaseOrderPage;
 let createPurchaseOrderPage!: CreatePurchaseOrderPage;
 
-test.setTimeout(180000);
+test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
     managePurchaseOrderPage = new ManagePurchaseOrderPage(page);

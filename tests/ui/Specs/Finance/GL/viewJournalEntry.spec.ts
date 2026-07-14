@@ -6,7 +6,7 @@ import { ViewJournalEntryPage } from '../../../Pages/Finance/GL/viewJournalEntry
 let manageJournalEntryPage: ManageJournalEntryPage;
 let viewJournalEntryPage: ViewJournalEntryPage;
 
-test.setTimeout(120000);
+test.setTimeout(60000);
 
 test.beforeEach(async ({ page }) => {
   manageJournalEntryPage = new ManageJournalEntryPage(page);

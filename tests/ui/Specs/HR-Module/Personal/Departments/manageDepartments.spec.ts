@@ -5,7 +5,7 @@ let manageDepartmentsPage: ManageDepartmentsPage;
 
 test.describe('Manage Departments Module', () => {
 
-  test.setTimeout(120000); // 2 minutes
+  test.setTimeout(60000);
 
   test.beforeEach(async ({ page }, testInfo) => {
     manageDepartmentsPage = new ManageDepartmentsPage(page);

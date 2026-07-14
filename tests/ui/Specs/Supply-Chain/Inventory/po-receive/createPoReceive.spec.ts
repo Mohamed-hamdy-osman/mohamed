@@ -8,7 +8,7 @@ let managePOReceivePage: ManagePOReceivePage;
 
 let createPOReceivePage: CreatePOReceivePage;
 
-test.setTimeout(120000);
+test.setTimeout(60000);
 
 test.beforeEach(async ({ page }) => {
 

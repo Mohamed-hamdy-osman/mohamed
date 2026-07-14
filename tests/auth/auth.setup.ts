@@ -5,7 +5,7 @@ import fs from 'fs';
 
 export const authFile = path.join(__dirname, '../../.auth/user.json');
 
-setup.setTimeout(120000);
+setup.setTimeout(60000);
 
 setup('authenticate', async ({ page }) => {
     fs.mkdirSync(path.dirname(authFile), { recursive: true });
