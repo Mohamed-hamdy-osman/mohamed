@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 
   // open system
   await page.goto('/zeta/choose-module');
-await page.waitForLoadState('networkidle');
+await page.waitForLoadState('load');
   console.log(`Test start: ${testInfo.title}`);
 
   // login
@@ -23,7 +23,7 @@ await page.waitForLoadState('networkidle');
 
 test.afterEach(async ({ page }, testInfo) => {
     await page.goto('/zeta/choose-module');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('load');
     console.log(`Test end: ${testInfo.title}`);
 });
 

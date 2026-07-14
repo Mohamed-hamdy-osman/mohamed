@@ -8,13 +8,13 @@ test.beforeEach(async ({ page }, testInfo) => {
   poReceiptPage = new ManagePOReceiptPage(page);
   
   await page.goto('/zeta/choose-module');
-await page.waitForLoadState('networkidle');
+await page.waitForLoadState('load');
   console.log(`Test start: ${testInfo.title}`);
 });
 
 test.afterEach(async ({ page }, testInfo) => {
     await page.goto('/zeta/choose-module');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('load');
     console.log(`Test end: ${testInfo.title}`);
 });
 

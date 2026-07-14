@@ -51,12 +51,12 @@ export class CreatePurchaseRequestPage {
     await dropdown.waitFor({ state: 'visible' });
     await expect(dropdown).not.toHaveAttribute('aria-disabled', 'true', { timeout: 20000 });
     await dropdown.click();
-    const panel = this.page.locator('.p-overlay:visible').last();
+    const panel = this.page.locator('.p-select-overlay').last();
     await panel.waitFor({ state: 'visible' });
     const options = panel.locator('.p-select-option');
-    await options.first().waitFor({ state: 'visible' });
-    await options.nth(index).click({ force: true });
-    await options.first().waitFor({ state: 'hidden', timeout: 5000 }).catch(() => {});
+    await options.nth(index).waitFor({ state: 'visible' });
+    await options.nth(index).click();
+    await panel.waitFor({ state: 'hidden', timeout: 5000 }).catch(() => {});
   }
 
 

@@ -48,10 +48,12 @@ export class CreatePurchaseOrderPage {
     await dropdown.waitFor({ state: 'visible' });
     await dropdown.click();
 
-    const options = this.page.locator('.p-select-option');
-    await options.first().waitFor({ state: 'visible' });
-    await options.nth(safeIndex).click({ force: true });
-    await options.first().waitFor({ state: 'hidden', timeout: 5000 }).catch(() => {});
+    const panel = this.page.locator('.p-select-overlay').last();
+    await panel.waitFor({ state: 'visible' });
+    const options = panel.locator('.p-select-option');
+    await options.nth(safeIndex).waitFor({ state: 'visible' });
+    await options.nth(safeIndex).click();
+    await panel.waitFor({ state: 'hidden', timeout: 5000 }).catch(() => {});
   }
 
 
@@ -66,7 +68,9 @@ export class CreatePurchaseOrderPage {
     await this.page.waitForTimeout(2000);
 
     await this.page.locator('text=Select Financial Period').click();
-    await this.page.locator('.p-select-option').first().click();
+    const fpPanel = this.page.locator('.p-select-overlay').last();
+    await fpPanel.waitFor({ state: 'visible' });
+    await fpPanel.locator('.p-select-option').first().click();
   }
 
 
@@ -131,16 +135,9 @@ export class CreatePurchaseOrderPage {
     const type_dropdown = dialog.getByRole('combobox').nth(0);
     await this.selectOption(type_dropdown, 1);
 
-    // Step 5: Select Service Name as "Miscellaneous"
+    // Step 5: Select Service Name (index 1)
     const serviceName_dropdown = dialog.getByRole('combobox').nth(1);
-    await serviceName_dropdown.waitFor({ state: 'visible' });
-    await serviceName_dropdown.click();
-    await this.page
-      .locator('.p-select-option', { hasText: 'Miscellaneous' })
-      .waitFor({ state: 'visible' });
-    await this.page
-      .locator('.p-select-option', { hasText: 'Miscellaneous' })
-      .click();
+    await this.selectOption(serviceName_dropdown, 1);
 
     // Step 6: Fill Description (mandatory)
     const description_input = dialog

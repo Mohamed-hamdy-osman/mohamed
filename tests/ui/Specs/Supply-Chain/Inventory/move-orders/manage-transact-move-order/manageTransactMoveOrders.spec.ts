@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
   transactPage = new ManageTransactOrdersPage(page);
 
   await page.goto('/zeta/choose-module');
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
 });
 

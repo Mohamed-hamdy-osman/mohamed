@@ -20,7 +20,7 @@ test.beforeEach(async ({ page }) => {
     new CreatePOInspectionPage(page);
 
   await page.goto('/zeta/choose-module');
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
 
 

@@ -296,7 +296,7 @@ export class CreateJournalEntryPage {
         .last() // pencil is the last button, eye is first
         .click({ force: true });
 
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('load');
     
 }
 

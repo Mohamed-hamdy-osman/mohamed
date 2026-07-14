@@ -11,7 +11,7 @@ test.beforeEach(async ({ page }, testInfo) => {
   storesPage = new ManageStoresPage(page);
 
   await page.goto('/zeta/choose-module');
-await page.waitForLoadState('networkidle');
+await page.waitForLoadState('load');
   console.log(`Test start: ${testInfo.title}`);
 
 
@@ -19,7 +19,7 @@ await page.waitForLoadState('networkidle');
 
 test.afterEach(async ({ page }, testInfo) => {
     await page.goto('/zeta/choose-module');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('load');
     console.log(`Test end: ${testInfo.title}`);
 });
 

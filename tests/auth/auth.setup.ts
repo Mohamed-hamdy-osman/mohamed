@@ -22,7 +22,7 @@ setup('authenticate', async ({ page }) => {
     await loginPage.verifyLoginSuccessWithCorporate();
 
     await page.waitForURL(/main/, { timeout: 30000 });
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('load');
 
     await page.context().storageState({
         path: authFile,
