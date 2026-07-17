@@ -48,7 +48,7 @@ export class LoginPage {
    // }
 
     async verifyLoginSuccessWithCorporate() {
-        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('load');
 
         if (await this.logToCorporate_btn.isVisible()) {
             await Promise.all([
