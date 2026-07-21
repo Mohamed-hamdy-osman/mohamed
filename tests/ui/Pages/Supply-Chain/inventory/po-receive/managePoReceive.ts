@@ -20,7 +20,7 @@ export class ManagePOReceivePage {
 
     this.page = page;
 
-    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).first();
+    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).last();
     this.supplyChain_btn = page.getByText('Supply Chain');
 
     this.inventory_btn = page.getByText('Inventory');

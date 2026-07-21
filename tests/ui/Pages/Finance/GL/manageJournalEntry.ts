@@ -15,7 +15,7 @@ export class ManageJournalEntryPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).first();
+    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).last();
     this.financeMenu = page.getByText('Finance');
     this.generalLedgerMenu = page.getByText('General Ledger');
     this.operationsMenu = page.getByText('Operations');

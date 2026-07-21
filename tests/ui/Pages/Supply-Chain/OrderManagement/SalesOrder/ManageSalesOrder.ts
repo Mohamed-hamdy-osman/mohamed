@@ -20,7 +20,7 @@ export class SalesOrdersPage {
 
     this.page = page;
 
-    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).first();
+    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).last();
     this.supplyChain_btn = page.getByText('Supply Chain');
     this.orderManagement_btn = page.getByText('Order Management');
     this.operationsmenu_btn = page.getByText('Operations');
