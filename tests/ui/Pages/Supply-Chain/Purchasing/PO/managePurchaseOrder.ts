@@ -4,6 +4,7 @@ export class ManagePurchaseOrderPage {
 
   readonly page: Page;
 
+  readonly logToCorporate_btn: Locator;
   readonly supplyChain_btn: Locator;
   readonly purchasing_btn: Locator;
   readonly operationsmenu_btn: Locator;
@@ -18,6 +19,7 @@ export class ManagePurchaseOrderPage {
   constructor(page: Page) {
 
     this.page = page;
+    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).first();
     this.supplyChain_btn = page.getByText('Supply Chain');
     this.purchasing_btn = page.getByText('Purchasing');
     this.operationsmenu_btn = page.getByText('Operations');
@@ -36,7 +38,14 @@ export class ManagePurchaseOrderPage {
 
   }
 
+  async waitForLoader() {
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
+  }
+
   async navigateToPurchaseOrders() {
+    await this.waitForLoader();
+    await this.logToCorporate_btn.click();
+    await this.waitForLoader();
     await this.supplyChain_btn.click();
     await this.purchasing_btn.click();
     await this.operationsmenu_btn.waitFor({ state: 'visible' });

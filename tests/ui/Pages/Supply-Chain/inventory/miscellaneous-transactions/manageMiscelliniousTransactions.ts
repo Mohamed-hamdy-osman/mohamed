@@ -3,6 +3,7 @@ import { expect, type Locator, type Page } from '@playwright/test';
 export class ManageMiscTransactionsPage {
 
   readonly page: Page;
+  readonly logToCorporate_btn: Locator;
   readonly supplyChain_btn: Locator;
   readonly inventory_btn: Locator;
   readonly operationsmenu_btn: Locator;
@@ -18,6 +19,7 @@ export class ManageMiscTransactionsPage {
 
     this.page = page;
 
+    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).first();
     this.supplyChain_btn = page.getByText('Supply Chain');
     this.inventory_btn = page.getByText('Inventory');
     this.operationsmenu_btn = page.getByText('Operations');
@@ -34,7 +36,14 @@ export class ManageMiscTransactionsPage {
     this.searchResultRow = page.locator('tbody tr').first();
   }
 
+  async waitForLoader() {
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
+  }
+
   async navigateToMiscTransactions() {
+    await this.waitForLoader();
+    await this.logToCorporate_btn.click();
+    await this.waitForLoader();
     await this.supplyChain_btn.click();
     await this.inventory_btn.click();
     await this.operationsmenu_btn.waitFor({ state: 'visible' });

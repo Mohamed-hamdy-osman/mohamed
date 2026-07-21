@@ -4,6 +4,7 @@ export class ManageJournalEntryPage {
 
   readonly page: Page;
 
+  readonly logToCorporate_btn: Locator;
   readonly financeMenu: Locator;
   readonly generalLedgerMenu: Locator;
   readonly operationsMenu: Locator;
@@ -14,6 +15,7 @@ export class ManageJournalEntryPage {
   constructor(page: Page) {
     this.page = page;
 
+    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).first();
     this.financeMenu = page.getByText('Finance');
     this.generalLedgerMenu = page.getByText('General Ledger');
     this.operationsMenu = page.getByText('Operations');
@@ -28,6 +30,8 @@ export class ManageJournalEntryPage {
 
   async navigateToManageJournalEntry() {
 
+    await this.waitForLoader();
+    await this.logToCorporate_btn.click();
     await this.waitForLoader();
 
     await this.financeMenu.click();

@@ -4,6 +4,7 @@ export class SalesOrdersPage {
 
   readonly page: Page;
 
+  readonly logToCorporate_btn: Locator;
   readonly supplyChain_btn: Locator;
   readonly orderManagement_btn: Locator;
   readonly operationsmenu_btn: Locator;
@@ -19,6 +20,7 @@ export class SalesOrdersPage {
 
     this.page = page;
 
+    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).first();
     this.supplyChain_btn = page.getByText('Supply Chain');
     this.orderManagement_btn = page.getByText('Order Management');
     this.operationsmenu_btn = page.getByText('Operations');
@@ -35,8 +37,14 @@ export class SalesOrdersPage {
     this.searchResultRow = page.locator('tbody tr').first();
   }
 
-  async navigateToSalesOrders() {
+  async waitForLoader() {
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
+  }
 
+  async navigateToSalesOrders() {
+    await this.waitForLoader();
+    await this.logToCorporate_btn.click();
+    await this.waitForLoader();
     await this.supplyChain_btn.click();
     await this.orderManagement_btn.click();
 
