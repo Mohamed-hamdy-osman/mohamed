@@ -1,11 +1,12 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-export class DebitMemoPage {
+export class StandardInvoicePage {
 
   readonly page: Page;
 
   readonly createBtn: Locator;
-  readonly debitMemoBtn: Locator;
+  readonly standardBtn: Locator;
+  readonly proceedWithoutPOBtn: Locator;
   readonly branchDropdown: Locator;
   readonly vendorDropdown: Locator;
   readonly fiscalPeriod: Locator;
@@ -33,8 +34,8 @@ export class DebitMemoPage {
     this.page = page;
 
     this.createBtn = page.getByRole('button', { name: 'Create' });
-    this.debitMemoBtn = page.getByRole('button', { name: 'Debit Memo' });
-
+    this.standardBtn = page.getByRole('button', { name: 'Standard' });
+    this.proceedWithoutPOBtn = page.getByRole('button', { name: 'Proceed Without PO' });
     this.branchDropdown = page.getByRole('combobox', { name: 'Branch' });
     this.vendorDropdown = page.getByRole('combobox', { name: 'Select Vendor', exact: true });
     this.fiscalPeriod = page.getByRole('combobox', { name: 'Fiscal Period' });
@@ -44,7 +45,7 @@ export class DebitMemoPage {
     this.vendorInvoiceNumber = page.getByRole('textbox', { name: 'Vendor Invoice Number' });
     this.vendorInvoiceAmount = page.getByRole('textbox', { name: 'Vendor Invoice Amount' });
     this.paymentMethodDropdown = page.getByRole('combobox', { name: 'Payment Method' });
-    this.invoiceType = page.locator('small').filter({ hasText: 'Debit Memo' });
+this.invoiceType = page.locator('small').filter({ hasText: 'Standard' });
     this.categoryDropdown = page.getByLabel('Category');
     this.sequence = page.getByLabel('Sequence');
     this.currencyDropdown = page.getByRole('combobox', { name: 'Currency' });
@@ -56,7 +57,7 @@ export class DebitMemoPage {
     this.dueDate = page.getByText('--').nth(1);
     this.addLineBtn = page.getByRole('button', { name: 'Add Line' });
     this.saveBtn = page.getByRole('button', { name: 'Save' });
-    this.submitBtn = page.locator('app-create-invoice-without-po-debit-memo p-button button').filter({ hasText: /submit/i });
+    this.submitBtn = page.getByRole('button', { name: 'Submit' });
   }
 
   async waitForLoader() {
@@ -68,19 +69,24 @@ export class DebitMemoPage {
     await panel.locator('li').filter({ hasText: itemText }).first().click();
   }
 
-  async createDebitMemoInvoice() {
-
-    // 1- Click Create
+async createStandardInvoice() {
+// 1- Click Create
     await this.createBtn.click();
 
-    // 2- Select Debit Memo
-    await this.debitMemoBtn.click();
+// 2- Select Standard
+await this.standardBtn.click();
 
-    await this.waitForLoader();
+// 3- Wait for Select PO Dialog
+const selectPODialog = this.page.locator('.p-dialog:visible');
+await selectPODialog.waitFor({ state: 'visible' });
 
-    // 3- Verify Navigation
-    await expect(this.page).toHaveURL(/create-invoice-without-Po-debit-memo/);
+// 4- Click Proceed Without PO
+await this.proceedWithoutPOBtn.click();
 
+await this.waitForLoader();
+
+// 5- Verify Navigation
+await expect(this.page).toHaveURL(/create-invoice-without-Po/);
     // 4- Branch = Cairo Branch (second option)
     await this.branchDropdown.click();
     const branchPanel = this.page.locator('.p-dropdown-panel, .p-dropdown-items-wrapper, .p-overlay').last();
@@ -211,11 +217,20 @@ async addInvoiceLine() {
   await this.page.locator('.p-dialog:visible').waitFor({ state: 'hidden', timeout: 15000 });
   }
 
-  async submitInvoice() {
-    const submitBtn = this.page.locator('xpath=/html/body/app-layout/div/div/div/div/div/app-content/div/app-create-invoice-without-po-debit-memo/div[2]/div[4]/div/div/p-button/button');
-    await expect(submitBtn).toBeEnabled({ timeout: 15000 });
-    await submitBtn.click({ force: true });
-    await this.waitForLoader();
+async submitInvoice() {
+  const submitBtn = this.page.locator('app-create-invoice-without-po p-button button').filter({ hasText: /submit/i });
+  await expect(submitBtn).toBeEnabled({ timeout: 15000 });
+  await submitBtn.click({ force: true });
+
+  // Handle confirmation dialog if it appears
+  const confirmDialog = this.page.locator('.p-dialog:visible');
+  const appeared = await confirmDialog.waitFor({ state: 'visible', timeout: 5000 }).then(() => true).catch(() => false);
+  if (appeared) {
+    const confirmBtn = confirmDialog.getByRole('button').filter({ hasText: /yes|confirm|ok/i }).first();
+    await confirmBtn.click();
+  }
+
+  await this.waitForLoader();
   }
 
  

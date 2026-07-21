@@ -27,6 +27,15 @@ test.describe('Debit Memo', () => {
     // Create Debit Memo
     await debitMemoPage.createDebitMemoInvoice();
 
+    // Add Invoice Line
+    await debitMemoPage.addInvoiceLine();
+
+    // Submit Invoice
+    await debitMemoPage.submitInvoice();
+
+    // Navigate back to Manage Invoices and assert Submitted status
+    await manageInvoicesPage.navigateToManageInvoices();
+
   });
 
 });
