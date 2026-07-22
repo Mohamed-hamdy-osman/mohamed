@@ -62,4 +62,8 @@ export class ManageInvoicesPage {
     await expect(this.manageInvoicesHeader).toBeVisible();
     await expect(this.addInvoiceBtn).toBeVisible();
   }
+
+  async verifyManageInvoicesPageLoaded() {
+    await this.verifyNavigationToManageInvoices();
+  }
 }

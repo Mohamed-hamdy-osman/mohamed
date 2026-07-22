@@ -123,7 +123,7 @@ test('Verify Create Purchase Order Expenses', async ({ page }) => {
     ]);
     await createPurchaseOrderPage.submitPurchaseOrder();
 });
-test.only('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
+test('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await managePurchaseOrderPage.create_btn.click();
     await createPurchaseOrderPage.fillRequiredFields();
@@ -157,7 +157,7 @@ test.only('Verify Create Purchase Order Service Line Freight', async ({ page }) 
     await expect(page.getByText('Purchase Order Submitted Successfully')).toBeVisible({ timeout: 15000 });
 });
 
-test.only('Verify Create Purchase Order Service Lines Miscellaneous & Freight', async ({ page }) => {
+test('Verify Create Purchase Order Service Lines Miscellaneous & Freight', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await managePurchaseOrderPage.create_btn.click();
     await createPurchaseOrderPage.fillRequiredFields();

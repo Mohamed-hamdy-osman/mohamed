@@ -60,7 +60,7 @@ export class CreatePurchaseOrderPage {
   async fillRequiredFields() {
 
     await this.selectOption(this.poVersion_dropdown, 0);
-    await this.selectOption(this.branch_dropdown, 0);
+    await this.selectOption(this.branch_dropdown, 1);
     await this.selectOption(this.currency_dropdown, 0);
     await this.selectOption(this.currencyType_dropdown, 0);
     await this.selectOption(this.vendor_dropdown, 0);
