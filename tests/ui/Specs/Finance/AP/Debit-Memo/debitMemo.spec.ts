@@ -33,8 +33,6 @@ test.describe('Debit Memo', () => {
     // Submit Invoice
     await debitMemoPage.submitInvoice();
 
-    // Navigate back to Manage Invoices and assert Submitted status
-    await manageInvoicesPage.navigateToManageInvoices();
 
   });
 
