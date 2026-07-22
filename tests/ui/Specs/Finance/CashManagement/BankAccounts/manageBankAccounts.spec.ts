@@ -1,13 +1,13 @@
 import { test } from '@playwright/test';
-import { ManageBanksPage } from '../../../../Pages/Finance/CashManagement/Banks/manageBanks';
+import { ManageBankAccountsPage } from '../../../../Pages/Finance/CashManagement/BankAccounts/ManageBankAccounts';
 
-let manageBanksPage!: ManageBanksPage;
+let manageBankAccountsPage!: ManageBankAccountsPage;
 
 test.setTimeout(60000);
 
 test.beforeEach(async ({ page }, testInfo) => {
 
-  manageBanksPage = new ManageBanksPage(page);
+  manageBankAccountsPage = new ManageBankAccountsPage(page);
 
   await page.goto('/zeta/choose-module');
   await page.waitForLoadState('load');
@@ -25,12 +25,12 @@ test.afterEach(async ({ page }, testInfo) => {
   console.log(`Test end: ${testInfo.title}`);
 });
 
-test('Verify Navigation To Manage Banks Page', async ({ page }) => {
+test('Verify Navigation To Manage Bank Accounts Page', async ({ page }) => {
 
-  await manageBanksPage.navigateToManageBanks();
+  await manageBankAccountsPage.navigateToManageBankAccounts();
 
   await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
 
-  await manageBanksPage.verifyNavigationToManageBanks();
+  await manageBankAccountsPage.verifyNavigationToManageBankAccounts();
 
 });
