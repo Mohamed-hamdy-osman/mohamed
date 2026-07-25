@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { ManagePurchaseRequestPage } from '../../../../Pages/Supply-Chain/Purchasing/PR/managePurchaseRequest';
-import { CreatePurchaseRequestPage } from '../../../../Pages/Supply-Chain/Purchasing/PR/createPurchaseRequest';
+import { ManagePurchaseRequestPage } from '../../../../Pages/Supply-Chain/purchasing/pr/manage-purchase-request';
+import { CreatePurchaseRequestPage } from '../../../../Pages/Supply-Chain/purchasing/pr/create-purchase-request';
 
 let managePurchaseRequestPage!: ManagePurchaseRequestPage;
 let createPurchaseRequestPage!: CreatePurchaseRequestPage;

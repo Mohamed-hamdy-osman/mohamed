@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { SalesOrdersPage } from '../../../../Pages/Supply-Chain/OrderManagement/SalesOrder/ManageSalesOrder';
+import { SalesOrdersPage } from '../../../../Pages/supply-chain/order-management/sales-order/manage-sales-order';
 
 let salesOrdersPage!: SalesOrdersPage;
 

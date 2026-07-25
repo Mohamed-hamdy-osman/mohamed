@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { ManageCustomerCategoryPage } from '../../../../Pages/Finance/AR/Customer-Category/manageCustomerCategory';
-import { CreateCustomerCategoryPage } from '../../../../Pages/Finance/AR/Customer-Category/createCustomerCateogry';
+import { ManageCustomerCategoryPage } from '../../../../Pages/finance/AR/Customer-Category/manageCustomerCategory';
+import { CreateCustomerCategoryPage } from '../../../../Pages/finance/AR/Customer-Category/createCustomerCateogry';
 
 
 let manageCustomerCategoryPage!: ManageCustomerCategoryPage;

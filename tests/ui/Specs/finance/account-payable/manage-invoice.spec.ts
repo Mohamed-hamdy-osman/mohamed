@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageInvoicesPage } from '../../../Pages/Finance/AP/manageInvoice';
+import { ManageInvoicesPage } from '../../../Pages/finance/AP/manageInvoice';
 
 let manageInvoicesPage: ManageInvoicesPage;
 

@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManagePurchaseRequestPage } from '../../../../Pages/Supply-Chain/Purchasing/PR/managePurchaseRequest';
+import { ManagePurchaseRequestPage } from '../../../../Pages/Supply-Chain/purchasing/pr/manage-purchase-request';
 let purchaseRequestPage!: ManagePurchaseRequestPage;
 
 test.setTimeout(60000);

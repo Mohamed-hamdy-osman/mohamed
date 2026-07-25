@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { PendingPurchaseRequestPage } from '../../../../Pages/Supply-Chain/Purchasing/PR/pendingPurchaseRequest';
+import { PendingPurchaseRequestPage } from '../../../../Pages/Supply-Chain/purchasing/pr/pending-purchase-request';
 
 let pendingPurchaseRequestPage: PendingPurchaseRequestPage;
 

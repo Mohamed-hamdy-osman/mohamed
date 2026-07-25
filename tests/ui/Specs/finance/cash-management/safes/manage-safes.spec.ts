@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageSafesPage } from '../../../../Pages/Finance/CashManagement/Safes/manageSafes';
+import { ManageSafesPage } from '../../../../Pages/finance/CashManagement/Safes/manageSafes';
 
 let manageSafesPage!: ManageSafesPage;
 

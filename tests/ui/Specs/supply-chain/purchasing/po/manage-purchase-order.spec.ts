@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManagePurchaseOrderPage } from '../../../../Pages/Supply-Chain/Purchasing/PO/managePurchaseOrder';
+import { ManagePurchaseOrderPage } from '../../../../Pages/Supply-Chain/purchasing/po/manage-purchase-order';
 
 let purchaseOrderPage!: ManagePurchaseOrderPage;
 

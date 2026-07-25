@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { ManagePositionPage } from '../../../../Pages/HR-Module/Personal/Position/managePosition';
-import { CreatePositionPage } from '../../../../Pages/HR-Module/Personal/Position/createPosition';
+import { ManagePositionPage } from '../../../../Pages/hr/personal/position/manage-position';
+import { CreatePositionPage } from '../../../../Pages/hr/personal/position/create-position';
 
 let managePositionPage: ManagePositionPage;
 let createPositionPage: CreatePositionPage;

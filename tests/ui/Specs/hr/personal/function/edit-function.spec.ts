@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { ManageFunctionPage } from '../../../../Pages/HR-Module/Personal/Function/manageFunction';
-import { CreateFunctionPage } from '../../../../Pages/HR-Module/Personal/Function/createFunction';
+import { ManageFunctionPage } from '../../../../Pages/hr/personal/function/manage-function';
+import { CreateFunctionPage } from '../../../../Pages/hr/personal/function/create-function';
 
 let manageFunctionPage: ManageFunctionPage;
 let createFunctionPage: CreateFunctionPage;

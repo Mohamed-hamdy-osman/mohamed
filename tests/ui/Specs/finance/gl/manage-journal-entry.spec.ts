@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageJournalEntryPage } from '../../../Pages/Finance/GL/manageJournalEntry';
+import { ManageJournalEntryPage } from '../../../Pages/finance/GL/manageJournalEntry';
 
 
 let manageJournalEntryPage!: ManageJournalEntryPage;

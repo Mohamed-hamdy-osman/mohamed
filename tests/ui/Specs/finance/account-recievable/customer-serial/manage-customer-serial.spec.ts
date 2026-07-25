@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageCustomerSerialPage } from '../../../../Pages/Finance/AR/Customer-Serial/manageCustomerSerial';
+import { ManageCustomerSerialPage } from '../../../../Pages/finance/AR/Customer-Serial/manageCustomerSerial';
 let manageCustomerSerialPage!: ManageCustomerSerialPage;
 
 test.setTimeout(120000);

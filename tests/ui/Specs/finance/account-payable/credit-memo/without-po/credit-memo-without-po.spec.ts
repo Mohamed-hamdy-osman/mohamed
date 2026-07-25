@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { ManageInvoicesPage } from '../../../../../Pages/Finance/AP/manageInvoice';
-import { CreditInvoicePage } from '../../../../../Pages/Finance/AP/Credit-Memo/Without-PO/creditMemo';
+import { ManageInvoicesPage } from '../../../../../Pages/finance/AP/manageInvoice';
+import { CreditInvoicePage } from '../../../../../Pages/finance/AP/Credit-Memo/Without-PO/creditMemo';
 
 
 let manageInvoicesPage: ManageInvoicesPage;
