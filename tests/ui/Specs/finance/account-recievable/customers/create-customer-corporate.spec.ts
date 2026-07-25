@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { ManageCustomersPage } from '../../../../Pages/finance/AR/Customers/manageCustomers';
-import { CreateCustomerCorporatePage } from '../../../../Pages/finance/AR/Customers/createCustomerCorporate';
+import { ManageCustomersPage } from '../../../../Pages/finance/account-receivable/customers/manageCustomers';
+import { CreateCustomerCorporatePage } from '../../../../Pages/finance/account-receivable/customers/create-customer-corporate';
 
 
 
