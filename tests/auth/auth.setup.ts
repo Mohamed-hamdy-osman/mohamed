@@ -1,5 +1,5 @@
 import { test as setup } from '@playwright/test';
-import { LoginPage } from '../ui/Pages/Login/loginPage';
+import { LoginPage } from '../ui/Pages/login/login-page';
 import path from 'path';
 import fs from 'fs';
 
