@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { ManageSafesPage } from '../../../../Pages/finance/CashManagement/Safes/manageSafes';
-import { CreateSafesPage } from '../../../../Pages/finance/CashManagement/Safes/createSafes';
+import { ManageSafesPage } from '../../../../Pages/finance/cash-management/safes/manage-safes';
+import { CreateSafesPage } from '../../../../Pages/finance/cash-management/safes/create-safes';
 
 let manageSafesPage!: ManageSafesPage;
 let createSafesPage!: CreateSafesPage;

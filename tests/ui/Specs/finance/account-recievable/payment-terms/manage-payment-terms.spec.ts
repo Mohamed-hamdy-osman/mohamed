@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManagePaymentTermsPage } from '../../../../Pages/finance/AR/Payment-Terms/managePaymentTerms';
+import { ManagePaymentTermsPage } from '../../../../Pages/finance/Account-Receivable/payment-terms/manage-payment-terms';
 
 let managePaymentTermsPage!: ManagePaymentTermsPage;
 

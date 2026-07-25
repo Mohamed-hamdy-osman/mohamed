@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { ManageBankAccountsPage } from '../../../../Pages/finance/CashManagement/BankAccounts/manageBankAccounts';
-import { CreateBankAccountPage } from '../../../../Pages/finance/CashManagement/BankAccounts/createBankAccounts';
+import { ManageBankAccountsPage } from '../../../../Pages/finance/cash-management/bank-accounts/manage-bank-accounts';
+import { CreateBankAccountPage } from '../../../../Pages/finance/cash-management/bank-accounts/create-bank-accounts';
 
 
 let manageBankAccountsPage!: ManageBankAccountsPage;

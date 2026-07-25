@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ViewBankPage } from '../../../../Pages/finance/CashManagement/Banks/viewBanks';
+import { ViewBankPage } from '../../../../Pages/finance/cash-management/banks/view-banks';
 
 let viewBankPage!: ViewBankPage;
 

@@ -1,6 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageBankAccountsPage } from '../../../../Pages/finance/CashManagement/BankAccounts/manageBankAccounts';
-
+import { ManageBankAccountsPage } from '../../../../Pages/finance/cash-management/bank-accounts/manage-bank-accounts';
 let manageBankAccountsPage!: ManageBankAccountsPage;
 
 test.setTimeout(60000);

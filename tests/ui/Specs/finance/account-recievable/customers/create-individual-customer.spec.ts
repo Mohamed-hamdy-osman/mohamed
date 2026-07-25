@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { ManageCustomersPage } from '../../../../Pages/finance/AR/Customers/manageCustomers';
-import { CreateCustomerIndividualPage } from '../../../../Pages/finance/AR/Customers/createIndividualCustomer';
+import { ManageCustomersPage } from '../../../../Pages/finance/account-receivable/customers/manage-customers';
+import { CreateCustomerIndividualPage } from '../../../../Pages/finance/account-receivable/customers/create-individual-customer';
 
 
 let manageCustomersPage!: ManageCustomersPage;

@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageSalesPersonPage } from '../../../../Pages/finance/AR/Sales-Person/manageSalesPerson';
+import { ManageSalesPersonPage } from '../../../../Pages/finance/Account-Receivable/sales-person/manage-sales-person';
 let manageSalesPersonPage!: ManageSalesPersonPage;
 
 test.setTimeout(120000);
