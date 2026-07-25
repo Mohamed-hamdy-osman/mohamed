@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageItemsPage } from '../../../../Pages/Supply-Chain/inventory/items/ manageItems';
+import { ManageItemsPage } from '../../../../Pages/Supply-Chain/inventory/items/ manage-items';
 
 
 let itemsPage!: ManageItemsPage;

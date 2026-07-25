@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManagePOReturnPage } from '../../../../Pages/Supply-Chain/inventory/po-return/managePoReturn';
+import { ManagePOReturnPage } from '../../../../Pages/Supply-Chain/inventory/po-return/manage-po-return';
 
 let poReturnPage!: ManagePOReturnPage;
 

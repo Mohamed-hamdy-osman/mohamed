@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageFinancialPeriodsPage } from '../../../../Pages/Supply-Chain/inventory/financial-period-inventory/manageFinancialPeriod';
+import { ManageFinancialPeriodsPage } from '../../../../Pages/Supply-Chain/inventory/financial-period-inventory/manage-financial-period';
 
 let financialPeriodsPage!: ManageFinancialPeriodsPage;
 

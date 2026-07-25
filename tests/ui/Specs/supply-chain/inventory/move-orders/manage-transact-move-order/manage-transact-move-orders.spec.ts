@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageTransactOrdersPage } from '../../../../../Pages/Supply-Chain/inventory/move-orders/manage-transact-move-order/manageTransactMoveOrders';
+import { ManageTransactOrdersPage } from '../../../../../Pages/Supply-Chain/inventory/move-orders/manage-transact-move-order/manage-transact-move-orders';
 
 let transactPage!: ManageTransactOrdersPage;
 

@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageMoveOrdersPage } from '../../../../../Pages/Supply-Chain/inventory/move-orders/manage-move-order/manageMoveOrders';
+import { ManageMoveOrdersPage } from '../../../../../Pages/Supply-Chain/inventory/move-orders/manage-move-order/manage-move-orders';
 let moveOrdersPage!: ManageMoveOrdersPage;
 
 test.setTimeout(60000);

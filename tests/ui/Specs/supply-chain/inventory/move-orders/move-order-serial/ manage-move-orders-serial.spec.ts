@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageMoveOrdersSerialPage } from '../../../../../Pages/Supply-Chain/inventory/move-orders/move-order-serial /manageMoveOrdersSerial';
+import { ManageMoveOrdersSerialPage } from '../../../../../Pages/Supply-Chain/inventory/move-orders/move-order-serial /manage-move-orders-serial';
 let pageObj!: ManageMoveOrdersSerialPage;
 
 test.setTimeout(60000);

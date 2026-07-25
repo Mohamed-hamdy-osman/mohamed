@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageMiscTransactionsPage } from '../../../../Pages/Supply-Chain/inventory/miscellaneous-transactions/manageMiscelliniousTransactions';
+import { ManageMiscTransactionsPage } from '../../../../Pages/Supply-Chain/inventory/miscellaneous-transactions/manage-miscellinious-transactions';
 
 
 let miscTransactionsPage!: ManageMiscTransactionsPage;

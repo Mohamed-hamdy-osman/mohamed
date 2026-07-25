@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageCheckOnHandPage } from '../../../../Pages/Supply-Chain/inventory/check-on-hand/manageCheckOnHand';
+import { ManageCheckOnHandPage } from '../../../../Pages/Supply-Chain/inventory/check-on-hand/manage-check-on-hand';
 
 let checkOnHandPage!: ManageCheckOnHandPage;
 

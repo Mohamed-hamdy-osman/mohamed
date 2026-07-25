@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageAssignedBranchesPage } from '../../../../Pages/Supply-Chain/inventory/assigned-branches/manageAssignedBranches';
+import { ManageAssignedBranchesPage } from '../../../../Pages/Supply-Chain/inventory/assigned-branches/manage-assigned-branches';
 
 
 

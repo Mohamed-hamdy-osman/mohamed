@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 
-import { ManagePOReceivePage } from '../../../../Pages/Supply-Chain/inventory/po-receive/managePoReceive';
-import { CreatePOReceivePage } from '../../../../Pages/Supply-Chain/inventory/po-receive/createPoReceive';
+import { ManagePOReceivePage } from '../../../../Pages/Supply-Chain/inventory/po-receive/manage-po-receive';
+import { CreatePOReceivePage } from '../../../../Pages/Supply-Chain/inventory/po-receive/create-po-receive';
 
 
 let managePOReceivePage: ManagePOReceivePage;

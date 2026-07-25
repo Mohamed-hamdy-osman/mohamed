@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { ManagePOReceiptPage } from '../../../../Pages/Supply-Chain/inventory/po-receipt/managePoReceipt';
-import { CreatePOReceiptPage } from '../../../../Pages/Supply-Chain/inventory/po-receipt/createPoReceipt';
+import { ManagePOReceiptPage } from '../../../../Pages/Supply-Chain/inventory/po-receipt/manage-po-receipt';
+import { CreatePOReceiptPage } from '../../../../Pages/Supply-Chain/inventory/po-receipt/create-po-receipt';
 let managePOReceiptPage: ManagePOReceiptPage;
 let createPOReceiptPage: CreatePOReceiptPage;
 test.setTimeout(60000);

@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManagePOInspectionPage } from '../../../../Pages/Supply-Chain/inventory/po-inspections/managePoInspection';
+import { ManagePOInspectionPage } from '../../../../Pages/Supply-Chain/inventory/po-inspections/manage-po-inspection';
 let poInspectionPage!: ManagePOInspectionPage;
 
 test.setTimeout(60000);

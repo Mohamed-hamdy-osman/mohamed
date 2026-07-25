@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-import { ManagePOInspectionPage } from '../../../../Pages/Supply-Chain/inventory/po-inspections/managePoInspection';
-import { CreatePOInspectionPage } from '../../../../Pages/Supply-Chain/inventory/po-inspections/createPoInspection';
+import { ManagePOInspectionPage } from '../../../../Pages/Supply-Chain/inventory/po-inspections/manage-po-inspection';
+import { CreatePOInspectionPage } from '../../../../Pages/Supply-Chain/inventory/po-inspections/create-po-inspection';
 
 
 let managePOInspectionPage: ManagePOInspectionPage;

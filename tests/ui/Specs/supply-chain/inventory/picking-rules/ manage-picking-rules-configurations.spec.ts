@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManagePickingRulesConfigurationsPage } from '../../../../Pages/Supply-Chain/inventory/picking-rules/ managePickingRulesConfigurations';
+import { ManagePickingRulesConfigurationsPage } from '../../../../Pages/Supply-Chain/inventory/picking-rules/ manage-picking-rules-configurations';
 
 
 let pickingRulesPage!: ManagePickingRulesConfigurationsPage;

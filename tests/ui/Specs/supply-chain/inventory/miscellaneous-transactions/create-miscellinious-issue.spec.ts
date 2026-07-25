@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 
-import { ManageMiscTransactionsPage } from '../../../../Pages/Supply-Chain/inventory/miscellaneous-transactions/manageMiscelliniousTransactions';
-import { CreateMiscellaneousIssuePage } from '../../../../Pages/Supply-Chain/inventory/miscellaneous-transactions/createMiscelliniousIssue';
+import { ManageMiscTransactionsPage } from '../../../../Pages/Supply-Chain/inventory/miscellaneous-transactions/manage-miscellinious-transactions';
+import { CreateMiscellaneousIssuePage } from '../../../../Pages/Supply-Chain/inventory/miscellaneous-transactions/create-miscellinious-issue';
 
 let manageMiscTransactionsPage!: ManageMiscTransactionsPage;
 let miscellaneousPage!: CreateMiscellaneousIssuePage;

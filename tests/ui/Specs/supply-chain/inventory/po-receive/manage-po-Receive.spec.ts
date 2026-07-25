@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManagePOReceivePage } from '../../../../Pages/Supply-Chain/inventory/po-receive/managePoReceive';
+import { ManagePOReceivePage } from '../../../../Pages/Supply-Chain/inventory/po-receive/manage-po-receive';
 let poReceivePage!: ManagePOReceivePage;
 
 test.setTimeout(60000);
