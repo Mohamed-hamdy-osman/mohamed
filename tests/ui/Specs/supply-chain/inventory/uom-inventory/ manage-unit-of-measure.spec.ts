@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageUnitOfMeasurePage } from '../../../../Pages/Supply-Chain/inventory/uom-inventory/ manage-unit-of-measure';
+import { ManageUnitOfMeasurePage } from '../../../../Pages/supply-chain/inventory/uom-inventory/ manage-uom';
 
 let unitPage!: ManageUnitOfMeasurePage;
 test.setTimeout(60000);

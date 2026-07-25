@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 
-import { ManageJournalEntryPage } from '../../../Pages/finance/general-ledger/journal-entry/manage-journal-entry';
-import { CreateJournalEntryPage } from '../../../Pages/finance/general-ledger/journal-entry/create-journal-entry';
+import { ManageJournalEntryPage } from '../../../../Pages/finance/general-ledger/journal-entry/manage-journal-entry';
+import { CreateJournalEntryPage } from '../../../../Pages/finance/general-ledger/journal-entry/create-journal-entry';
 
 
 let manageJournalEntryPage: ManageJournalEntryPage;
