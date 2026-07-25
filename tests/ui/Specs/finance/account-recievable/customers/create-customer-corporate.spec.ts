@@ -3,6 +3,7 @@ import { ManageCustomersPage } from '../../../../Pages/finance/AR/Customers/mana
 import { CreateCustomerCorporatePage } from '../../../../Pages/finance/AR/Customers/createCustomerCorporate';
 
 
+
 let manageCustomersPage!: ManageCustomersPage;
 let createCustomerCorporatePage!: CreateCustomerCorporatePage;
 
