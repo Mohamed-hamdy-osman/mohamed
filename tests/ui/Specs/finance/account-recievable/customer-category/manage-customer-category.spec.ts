@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ManageCustomerCategoryPage } from '../../../../Pages/finance/AR/Customer-Category/manageCustomerCategory';
+import { ManageCustomerCategoryPage } from '../../../../Pages/finance/account-receivable/customer-category/manage-customer-category';
 let manageCustomerCategoryPage!: ManageCustomerCategoryPage;
 
 test.setTimeout(120000);
