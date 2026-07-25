@@ -53,7 +53,7 @@ this.invoiceType = page.locator('small').filter({ hasText: 'Standard' });
     this.equivalentInvoiceAmount = page.getByText('--').first();
     this.invoiceDate = page.getByLabel('Invoice Date');
     this.glDate = page.getByLabel('GL Date');
-    this.paymentTermDropdown = page.getByLabel('Payment Term');
+    this.paymentTermDropdown = page.getByRole('combobox', { name: 'Payment Term' });
     this.dueDate = page.getByText('--').nth(1);
     this.addLineBtn = page.getByRole('button', { name: 'Add Line' });
     this.saveBtn = page.getByRole('button', { name: 'Save' });
@@ -117,8 +117,10 @@ await expect(this.page).toHaveURL(/create-invoice-without-Po/);
 
    // 9- Vendor Invoice Number
     await this.vendorInvoiceNumber.fill(vendorInvoiceNumber);
+    await this.vendorInvoiceNumber.press('Tab');
     // 10- Vendor Invoice Amount
     await this.vendorInvoiceAmount.fill('114');
+    await this.vendorInvoiceAmount.press('Tab');
 
     // 11- Payment Method (First Option)
     await this.paymentMethodDropdown.click();
@@ -157,6 +159,7 @@ await expect(this.page).toHaveURL(/create-invoice-without-Po/);
     await expect(this.dueDate).toBeVisible();
 
     // 23- Wait for Add Line Button to be enabled then click
+    await this.page.waitForTimeout(1000);
     await expect(this.addLineBtn).toBeEnabled({ timeout: 15000 });
     await this.addLineBtn.click();
   }
