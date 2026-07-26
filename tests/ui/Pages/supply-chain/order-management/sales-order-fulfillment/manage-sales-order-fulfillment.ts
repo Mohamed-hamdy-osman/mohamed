@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-export class PendingSalesOrdersPage {
+export class SalesOrdersFulfillmentPage {
 
   readonly page: Page;
 
@@ -8,7 +8,7 @@ export class PendingSalesOrdersPage {
   readonly supplyChain_btn: Locator;
   readonly orderManagement_btn: Locator;
   readonly operationsmenu_btn: Locator;
-  readonly pendingSalesOrders_menu: Locator;
+  readonly salesOrdersFulfillment_menu: Locator;
   readonly create_btn: Locator;
   readonly filterChevron: Locator;
   readonly creationFrom_datepicker: Locator;
@@ -25,8 +25,8 @@ export class PendingSalesOrdersPage {
     this.orderManagement_btn = page.getByText('Order Management');
     this.operationsmenu_btn = page.getByText('Operations');
 
-    this.pendingSalesOrders_menu = page.getByRole('link', {
-      name: 'Pending Sales Orders',
+    this.salesOrdersFulfillment_menu = page.getByRole('link', {
+      name: 'Sales Orders Fulfillment',
       exact: true
     });
 
@@ -42,7 +42,7 @@ export class PendingSalesOrdersPage {
     await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
   }
 
-  async navigateToPendingSalesOrders() {
+  async navigateToSalesOrdersFulfillment() {
 
     await this.waitForLoader();
 
@@ -56,15 +56,15 @@ export class PendingSalesOrdersPage {
     await this.operationsmenu_btn.click();
 
     await Promise.all([
-      this.page.waitForURL(/pending-sales-orders/),
-      this.pendingSalesOrders_menu.click()
+      this.page.waitForURL(/sales-orders-fulfillment/),
+      this.salesOrdersFulfillment_menu.click()
     ]);
 
   }
 
-  async verifyNavigationToPendingSalesOrders() {
+  async verifyNavigationToSalesOrdersFulfillment() {
 
-    await expect(this.page).toHaveURL(/pending-sales-orders/);
+    await expect(this.page).toHaveURL(/sales-orders-fulfillment/);
 
   }
 
@@ -79,7 +79,7 @@ export class PendingSalesOrdersPage {
 
   }
 
-  async searchPendingSalesOrders() {
+  async searchSalesOrdersFulfillment() {
 
     await this.search_btn.waitFor({ state: 'visible' });
     await this.search_btn.click();
