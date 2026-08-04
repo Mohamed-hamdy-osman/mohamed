@@ -20,15 +20,17 @@ export default defineConfig({
       testMatch: /.*\.setup\.ts/,
     },
 
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: '.auth/user.json',
-      },
-      dependencies: ['setup'],
-      testIgnore: /.*\/api\/.*/,
-    },
+{
+  name: 'chromium',
+  use: {
+    ...devices['Desktop Chrome'],
+    storageState: '.auth/user.json',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+  },
+  dependencies: ['setup'],
+  testIgnore: /.*\/api\/.*/,
+},
 
     {
       name: 'api',
