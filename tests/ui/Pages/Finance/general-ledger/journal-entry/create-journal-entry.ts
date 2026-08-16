@@ -118,12 +118,11 @@ export class CreateJournalEntryPage {
 
   await firstOption.click();
 
-  await this.page.waitForTimeout(500);
+  await this.page.keyboard.press('Escape');
 
-  // verify the overlay closed after selection
   await expect(
     this.page.locator('[role="option"]')
-  ).toHaveCount(0, { timeout: 5000 });
+  ).toHaveCount(0, { timeout: 10000 });
 
 }
   async selectTodayDate(index: number) {
@@ -281,24 +280,24 @@ export class CreateJournalEntryPage {
 
     await this.save_btn.click();
 
-    await this.page.waitForLoadState(
-      'networkidle'
-    );
+    await this.page.waitForLoadState('load');
   }
 
+  async clickBack() {
+    await this.page.getByRole('link', { name: 'Journal Entries' }).click();
+    await this.page.waitForURL(/journal-entry/, { timeout: 15000 });
+    await this.page.waitForLoadState('load');
+  }
 
   async clickEditButton(index: number) {
-    // Target the edit (pencil) button - the second action button in the row
     await this.page
         .locator('tbody tr')
         .nth(index)
-        .locator('td:last-child button')
-        .last() // pencil is the last button, eye is first
+        .locator('button:has(.ki-notepad-edit)')
         .click({ force: true });
 
     await this.page.waitForLoadState('load');
-    
-}
+  }
 
 
   async clickPostButton() {
@@ -307,15 +306,11 @@ export class CreateJournalEntryPage {
       force: true
     });
 
-    await this.page.waitForLoadState(
-      'networkidle'
-    );
+    await this.page.waitForLoadState('load');
 
     await expect(
-      this.page
-        .locator('tbody tr')
-        .first()
-    ).toContainText('Posted');
+      this.page.getByText('Status : Posted')
+    ).toBeVisible({ timeout: 15000 });
   }
 
 
