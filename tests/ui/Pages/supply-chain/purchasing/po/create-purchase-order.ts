@@ -57,11 +57,32 @@ export class CreatePurchaseOrderPage {
   }
 
 
+  async selectOptionBySearch(dropdown: Locator, searchText: string) {
+
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+    await dropdown.waitFor({ state: 'visible' });
+    await dropdown.click();
+
+    const panel = this.page.locator('.p-select-overlay').last();
+    await panel.waitFor({ state: 'visible' });
+
+    const searchInput = panel.locator('input[type="text"], .p-select-filter');
+    await searchInput.waitFor({ state: 'visible' });
+    await searchInput.fill(searchText);
+
+    const matchedOption = panel.locator('.p-select-option', { hasText: searchText }).first();
+    await matchedOption.waitFor({ state: 'visible', timeout: 10000 });
+    await matchedOption.click();
+    await panel.waitFor({ state: 'hidden', timeout: 5000 }).catch(() => {});
+  }
+
+
   async fillRequiredFields() {
 
     await this.selectOption(this.poVersion_dropdown, 0);
-    await this.selectOption(this.branch_dropdown, 1);
-    await this.selectOption(this.currency_dropdown, 0);
+    await this.selectOptionBySearch(this.branch_dropdown, 'cairo');
+    await this.selectOptionBySearch(this.currency_dropdown, 'EGP');
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
     await this.selectOption(this.currencyType_dropdown, 0);
     await this.selectOption(this.vendor_dropdown, 0);
 

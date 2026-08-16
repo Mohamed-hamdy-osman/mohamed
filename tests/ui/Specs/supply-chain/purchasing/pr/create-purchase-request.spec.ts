@@ -123,7 +123,7 @@ test('Verify Create Purchase Request Service Line Miscellaneous', async ({ page 
     const type_dropdown = dialog.getByRole('combobox').nth(0);
     await createPurchaseRequestPage.selectOption(type_dropdown, 1);
     const serviceName_dropdown = dialog.getByRole('combobox').nth(1);
-    await createPurchaseRequestPage.selectOption(serviceName_dropdown, 0);
+    await createPurchaseRequestPage.selectOptionBySearch(serviceName_dropdown, 'Miscellaneous');
     const description_input = dialog.locator(
         'input[placeholder*="escription"], textarea[placeholder*="escription"]'
     ).first();
@@ -157,7 +157,7 @@ test('Verify Create Purchase Request Service Line Freight', async ({ page }) => 
     const type_dropdown = dialog.getByRole('combobox').nth(0);
     await createPurchaseRequestPage.selectOption(type_dropdown, 1);
     const serviceName_dropdown = dialog.getByRole('combobox').nth(1);
-    await createPurchaseRequestPage.selectOption(serviceName_dropdown, 1); // 0=Miscellaneous, 1=Freight
+    await createPurchaseRequestPage.selectOptionBySearch(serviceName_dropdown, 'Freight');
     const description_input = dialog.locator(
         'input[placeholder*="escription"], textarea[placeholder*="escription"]'
     ).first();
@@ -191,7 +191,7 @@ test('Verify Create Purchase Request Service Lines Miscellaneous & Freight', asy
     const type_dropdown1 = dialog1.getByRole('combobox').nth(0);
     await createPurchaseRequestPage.selectOption(type_dropdown1, 1);
     const serviceName_dropdown1 = dialog1.getByRole('combobox').nth(1);
-    await createPurchaseRequestPage.selectOption(serviceName_dropdown1, 0); // Miscellaneous
+    await createPurchaseRequestPage.selectOptionBySearch(serviceName_dropdown1, 'Miscellaneous');
     const description_input1 = dialog1.locator(
         'input[placeholder*="escription"], textarea[placeholder*="escription"]'
     ).first();
@@ -211,7 +211,7 @@ test('Verify Create Purchase Request Service Lines Miscellaneous & Freight', asy
     const type_dropdown2 = dialog2.getByRole('combobox').nth(0);
     await createPurchaseRequestPage.selectOption(type_dropdown2, 1);
     const serviceName_dropdown2 = dialog2.getByRole('combobox').nth(1);
-    await createPurchaseRequestPage.selectOption(serviceName_dropdown2, 1); // Freight
+    await createPurchaseRequestPage.selectOptionBySearch(serviceName_dropdown2, 'Freight');
     const description_input2 = dialog2.locator(
         'input[placeholder*="escription"], textarea[placeholder*="escription"]'
     ).first();

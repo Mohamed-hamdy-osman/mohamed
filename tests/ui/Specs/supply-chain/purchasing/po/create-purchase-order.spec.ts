@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { ManagePurchaseOrderPage } from '../../../../Pages/Supply-Chain/purchasing/po/manage-purchase-order';
 import { CreatePurchaseOrderPage } from '../../../../Pages/Supply-Chain/purchasing/po/create-purchase-order';
-
 let managePurchaseOrderPage!: ManagePurchaseOrderPage;
 let createPurchaseOrderPage!: CreatePurchaseOrderPage;
 
