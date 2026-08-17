@@ -10,10 +10,13 @@ export class ManageItemsPage {
   readonly items_menu: Locator;
   readonly create_btn: Locator;
 
+  readonly logToCorporate_btn: Locator;
+
   constructor(page: Page) {
 
     this.page = page;
 
+    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).last();
     this.supplyChain_btn = page.getByText('Supply Chain');
     this.inventory_btn = page.getByText('Inventory');
     this.settings_menu = page.getByText('Settings');
@@ -27,6 +30,10 @@ export class ManageItemsPage {
   }
 
   async navigateToItems() {
+
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+    await this.logToCorporate_btn.click();
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
 
     await this.supplyChain_btn.click();
     await this.inventory_btn.click();

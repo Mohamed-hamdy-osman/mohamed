@@ -27,10 +27,7 @@ export class CreateGroupsPage {
     });
 
     // Create button
-    this.createButton = page.getByRole('button', {
-      name: 'Create',
-      exact: true,
-    });
+    this.createButton = page.getByRole('button', { name: 'Create' }).first();
 
     // Create Group dialog
     this.createGroupDialog = page.getByRole('dialog');
@@ -52,13 +49,7 @@ export class CreateGroupsPage {
     );
 
     // Save
-    this.saveButton = this.createGroupDialog.getByRole(
-      'button',
-      {
-        name: 'Save',
-        exact: true,
-      }
-    );
+    this.saveButton = page.locator('button:has(span.p-button-label:text-is("Save"))');
   }
 
   /**
@@ -97,6 +88,8 @@ export class CreateGroupsPage {
   }
 
   async clickCreateButton() {
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+    await expect(this.createButton).toBeVisible({ timeout: 20000 });
     await this.createButton.click();
 
     await expect(this.createGroupDialog).toBeVisible();
@@ -106,12 +99,14 @@ export class CreateGroupsPage {
     name: string;
     code: string;
     types: string;
-    pickingRule: string;
+    pickingRule?: string;
   }) {
     await this.nameInput.fill(details.name);
     await this.codeInput.fill(details.code);
     await this.selectFromDropdown(this.typesDropdown, details.types);
-    await this.selectFromDropdown(this.pickingRuleDropdown, details.pickingRule);
+    if (details.pickingRule) {
+      await this.selectFromDropdown(this.pickingRuleDropdown, details.pickingRule);
+    }
   }
 
   /**

@@ -14,14 +14,10 @@ test.beforeEach(async ({ page }, testInfo) => {
   await page.goto('/zeta/choose-module');
   await page.waitForLoadState('load');
 
-  const logToCorporateBtn = page.getByRole('button', { name: 'Log to Corporate' }).last();
-  if (await logToCorporateBtn.isVisible()) {
-    await Promise.all([
-      page.waitForURL(/main/),
-      logToCorporateBtn.click(),
-    ]);
-    await page.waitForLoadState('load');
-  }
+  await page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+  await page.getByRole('button', { name: 'Log to Corporate' }).last().click();
+  await page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+  await page.waitForLoadState('load');
 
   console.log(`Test start: ${testInfo.title}`);
 });
@@ -31,15 +27,37 @@ test.afterEach(async ({}, testInfo) => {
 });
 
 test('Create Inventory Group', async () => {
+  const uid = Math.floor(Math.random() * 900 + 100);
+  const name = `Inventory Group ${uid}`;
+  const code = `INV-${uid}`;
   await createGroupsPage.goto();
   await createGroupsPage.selectGroupsTab();
   await createGroupsPage.clickCreateButton();
-  await createGroupsPage.fillGroupDetails({
-    name: 'Test Group',
-    code: 'TG001',
-    types: 'Inventory',
-    pickingRule: 'Group Picking Rule',
-  });
+  await createGroupsPage.fillGroupDetails({ name, code, types: 'Inventory', pickingRule: 'Picking Rule' });
   await createGroupsPage.saveGroup();
-  await createGroupsPage.verifyGroupCreation('Test Group');
+  await createGroupsPage.verifyGroupCreation(name);
+});
+
+test('Create Expenses Group', async () => {
+  const uid = Math.floor(Math.random() * 900 + 100);
+  const name = `Expenses Group ${uid}`;
+  const code = `EXP-${uid}`;
+  await createGroupsPage.goto();
+  await createGroupsPage.selectGroupsTab();
+  await createGroupsPage.clickCreateButton();
+  await createGroupsPage.fillGroupDetails({ name, code, types: 'Expenses' });
+  await createGroupsPage.saveGroup();
+  await createGroupsPage.verifyGroupCreation(name);
+});
+
+test('Create Assets Group', async () => {
+  const uid = Math.floor(Math.random() * 900 + 100);
+  const name = `Assets Group ${uid}`;
+  const code = `AST-${uid}`;
+  await createGroupsPage.goto();
+  await createGroupsPage.selectGroupsTab();
+  await createGroupsPage.clickCreateButton();
+  await createGroupsPage.fillGroupDetails({ name, code, types: 'Assets' });
+  await createGroupsPage.saveGroup();
+  await createGroupsPage.verifyGroupCreation(name);
 });
