@@ -21,8 +21,11 @@ export class PendingPurchaseRequestPage {
   readonly rejectedNotification: Locator;
   readonly returnedNotification: Locator;
 
+  readonly logToCorporate_btn: Locator;
+
   constructor(page: Page) {
     this.page = page;
+    this.logToCorporate_btn = page.getByRole('button', { name: 'Log to Corporate' }).last();
     this.supplyChain_btn = page.getByText('Supply Chain');
     this.purchasing_btn = page.getByText('Purchasing');
     this.operationsmenu_btn = page.getByText('Operations');
@@ -45,6 +48,10 @@ export class PendingPurchaseRequestPage {
   }
 
   async navigateToPendingPurchaseRequests() {
+
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+    await this.logToCorporate_btn.click();
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
 
     await expect(this.supplyChain_btn).toBeVisible({ timeout: 15000 });
 
