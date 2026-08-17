@@ -225,26 +225,17 @@ export class CreateJournalEntryPage {
     value: string
   ) {
 
-    const drCell = this.dr_cells
-      .nth(index);
+    const drCell = this.dr_cells.nth(index);
 
-    await drCell.click({
-      force: true
-    });
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+    await drCell.waitFor({ state: 'visible' });
+    await drCell.click({ force: true });
 
-    await this.page.waitForTimeout(
-      500
-    );
-
-    const input = drCell.locator(
-      'input'
-    );
-
+    const input = drCell.locator('input');
+    await input.waitFor({ state: 'visible', timeout: 10000 });
     await input.fill(value);
 
-    await this.page.keyboard.press(
-      'Tab'
-    );
+    await this.page.keyboard.press('Tab');
   }
 
 
@@ -285,43 +276,43 @@ export class CreateJournalEntryPage {
 
   async clickBack() {
     await this.page.getByRole('link', { name: 'Journal Entries' }).click();
-    await this.page.waitForURL(/journal-entry/, { timeout: 15000 });
+    await this.page.waitForURL(/\/journal-entry$/, { timeout: 15000 });
     await this.page.waitForLoadState('load');
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
   }
 
   async clickEditButton(index: number) {
-    await this.page
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+    const editBtn = this.page
         .locator('tbody tr')
         .nth(index)
-        .locator('button:has(.ki-notepad-edit)')
-        .click({ force: true });
-
+        .locator('button:has(i.ki-notepad-edit)');
+    await expect(editBtn).toBeVisible({ timeout: 15000 });
+    await editBtn.click();
+    await this.page.waitForURL(/edit-journal-entry/, { timeout: 20000 });
     await this.page.waitForLoadState('load');
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
   }
 
 
   async clickPostButton() {
 
-    await this.post_btn.click({
-      force: true
-    });
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
 
-    await this.page.waitForLoadState('load');
+    await expect(this.post_btn).toBeVisible({ timeout: 15000 });
+    await expect(this.post_btn).toBeEnabled({ timeout: 15000 });
+    await this.post_btn.click();
 
-    await expect(
-      this.page.getByText('Status : Posted')
-    ).toBeVisible({ timeout: 15000 });
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 30000 });
+
+    await this.page.waitForURL(/\/journal-entry$/, { timeout: 20000 });
+    const firstRowStatus = this.page.locator('tbody tr').first().locator('td').nth(4);
+    await expect(firstRowStatus).toContainText('Posted', { timeout: 15000 });
   }
 
 
-  async assertJournalIsPosted() {
-
-    const firstRowStatus = this.page
-      .locator('tbody tr')
-      .first()
-      .locator('td')
-      .nth(5);
+  
 
 
-  }
+  
 }
