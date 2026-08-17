@@ -21,7 +21,7 @@ test.afterEach(async ({ page }, testInfo) => {
     console.log(`Test end: ${testInfo.title}`);
 });
 
-test('Verify Create Purchase Order with Multiple Lines', async ({ page }) => {
+test.only('Verify Create Purchase Order with Multiple Lines', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
     await expect(managePurchaseOrderPage.create_btn).toBeVisible({ timeout: 15000 });
@@ -31,51 +31,30 @@ test('Verify Create Purchase Order with Multiple Lines', async ({ page }) => {
     await createPurchaseOrderPage.addMultiplePurchaseLines([
         {
             typeIndex: 0,
-            groupIndex: 2,
-            subGroupIndex: 1,
-            itemIndex: 0,
+            groupName: 'Inventory',
+            subGroupLast: true,
+            itemLast: true,
             uomIndex: 0,
             quantity: '10',
             price: '100',
         },
         {
             typeIndex: 0,
-            groupIndex: 2,
-            subGroupIndex: 0,
-            itemIndex: 0,
+            groupName: 'Expenses',
+            subGroupLast: true,
+            itemLast: true,
             uomIndex: 0,
             quantity: '10',
             price: '25',
         },
         {
             typeIndex: 0,
-            groupIndex: 1,
-            subGroupIndex: 0,
-            itemIndex: 1,
+            groupName: 'Assets',
+            subGroupLast: true,
+            itemLast: true,
             uomIndex: 0,
             quantity: '15',
             price: '30',
-        },
-    ]);
-    await createPurchaseOrderPage.submitPurchaseOrder();
-});
-
-test('Verify Create Purchase Order Assets SubGroup1', async ({ page }) => {
-    await managePurchaseOrderPage.navigateToPurchaseOrders();
-    await page.locator('.loader-wrapper').waitFor({ state: 'hidden' });
-    await expect(managePurchaseOrderPage.create_btn).toBeVisible({ timeout: 15000 });
-    await managePurchaseOrderPage.create_btn.click();
-    await expect(page).toHaveURL(/add-purchase-order/);
-    await createPurchaseOrderPage.fillRequiredFields();
-    await createPurchaseOrderPage.addMultiplePurchaseLines([
-        {
-            typeIndex: 0,
-            groupIndex: 2,
-            subGroupIndex: 1,
-            itemIndex: 0,
-            uomIndex: 0,
-            quantity: '10',
-            price: '100',
         },
     ]);
     await createPurchaseOrderPage.submitPurchaseOrder();
@@ -91,9 +70,9 @@ test('Verify Create Purchase Order Assets SubGroup', async ({ page }) => {
     await createPurchaseOrderPage.addMultiplePurchaseLines([
         {
             typeIndex: 0,
-            groupIndex: 2,
-            subGroupIndex: 0,
-            itemIndex: 0,
+            groupName: 'Assets',
+            subGroupLast: true,
+            itemLast: true,
             uomIndex: 0,
             quantity: '10',
             price: '25',
@@ -112,9 +91,9 @@ test('Verify Create Purchase Order Expenses', async ({ page }) => {
     await createPurchaseOrderPage.addMultiplePurchaseLines([
         {
             typeIndex: 0,
-            groupIndex: 1,
-            subGroupIndex: 0,
-            itemIndex: 1,
+            groupName: 'Expenses',
+            subGroupLast: true,
+            itemLast: true,
             uomIndex: 0,
             quantity: '15',
             price: '30',
@@ -122,7 +101,7 @@ test('Verify Create Purchase Order Expenses', async ({ page }) => {
     ]);
     await createPurchaseOrderPage.submitPurchaseOrder();
 });
-test.only('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
+test('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await managePurchaseOrderPage.create_btn.click();
     await createPurchaseOrderPage.fillRequiredFields();
@@ -156,7 +135,7 @@ test.only('Verify Create Purchase Order Service Line Freight', async ({ page }) 
     await expect(page.getByText('Purchase Order Submitted Successfully')).toBeVisible({ timeout: 15000 });
 });
 
-test.only('Verify Create Purchase Order Service Lines Miscellaneous & Freight', async ({ page }) => {
+test('Verify Create Purchase Order Service Lines Miscellaneous & Freight', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await managePurchaseOrderPage.create_btn.click();
     await createPurchaseOrderPage.fillRequiredFields();
@@ -209,7 +188,7 @@ test.only('Verify Create Purchase Order Service Lines Miscellaneous & Freight', 
     await page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 30000 });
     await expect(page.getByText('Purchase Order Submitted Successfully')).toBeVisible({ timeout: 15000 });
 });
-test.only('Verify Create Purchase Order Service Line Miscellaneous', async ({ page }) => {
+test('Verify Create Purchase Order Service Line Miscellaneous', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await managePurchaseOrderPage.create_btn.click();
     await createPurchaseOrderPage.fillRequiredFields();

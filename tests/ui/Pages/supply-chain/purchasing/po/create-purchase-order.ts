@@ -57,6 +57,19 @@ export class CreatePurchaseOrderPage {
   }
 
 
+  async selectLastOption(dropdown: Locator) {
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+    await dropdown.waitFor({ state: 'visible' });
+    await dropdown.click();
+    const panel = this.page.locator('.p-select-overlay').last();
+    await panel.waitFor({ state: 'visible' });
+    const options = panel.locator('.p-select-option');
+    await options.last().waitFor({ state: 'visible' });
+    await options.last().click();
+    await panel.waitFor({ state: 'hidden', timeout: 5000 }).catch(() => {});
+  }
+
+
   async selectOptionBySearch(dropdown: Locator, searchText: string) {
 
     await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
@@ -118,9 +131,21 @@ export class CreatePurchaseOrderPage {
     const saveLine_btn       = dialog.getByRole('button', { name: 'Save', exact: true });
 
     await this.selectOption(type_dropdown, line.typeIndex);
-    await this.selectOption(group_dropdown, line.groupIndex);
-    await this.selectOption(subGroup_dropdown, line.subGroupIndex);
-    await this.selectOption(item_dropdown, line.itemIndex);
+    if (line.groupName) {
+      await this.selectOptionBySearch(group_dropdown, line.groupName);
+    } else {
+      await this.selectOption(group_dropdown, line.groupIndex);
+    }
+    if (line.subGroupLast) {
+      await this.selectLastOption(subGroup_dropdown);
+    } else {
+      await this.selectOption(subGroup_dropdown, line.subGroupIndex);
+    }
+    if (line.itemLast) {
+      await this.selectLastOption(item_dropdown);
+    } else {
+      await this.selectOption(item_dropdown, line.itemIndex);
+    }
     await this.selectOption(uom_dropdown, line.uomIndex);
 
     const isCostCenterEnabled = await costCenter_dropdown.isEnabled();
