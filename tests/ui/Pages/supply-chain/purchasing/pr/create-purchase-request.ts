@@ -60,6 +60,20 @@ export class CreatePurchaseRequestPage {
   }
 
 
+  async selectLastOption(dropdown: Locator) {
+    await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
+    await dropdown.waitFor({ state: 'visible' });
+    await expect(dropdown).not.toHaveAttribute('aria-disabled', 'true', { timeout: 20000 });
+    await dropdown.click();
+    const panel = this.page.locator('.p-select-overlay').last();
+    await panel.waitFor({ state: 'visible' });
+    const options = panel.locator('.p-select-option');
+    await options.last().waitFor({ state: 'visible' });
+    await options.last().click();
+    await panel.waitFor({ state: 'hidden', timeout: 5000 }).catch(() => {});
+  }
+
+
   async selectOptionBySearch(dropdown: Locator, searchText: string) {
     await this.page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 20000 });
     await dropdown.waitFor({ state: 'visible' });
@@ -102,9 +116,21 @@ export class CreatePurchaseRequestPage {
     const costCenter_dd = dialog.getByRole('combobox').nth(5);
 
     await this.selectOption(type_dd, line.typeIndex);
-    await this.selectOption(group_dd, line.groupIndex);
-    await this.selectOption(subGroup_dd, line.subGroupIndex);
-    await this.selectOption(item_dd, line.itemIndex);
+    if (line.groupName) {
+      await this.selectOptionBySearch(group_dd, line.groupName);
+    } else {
+      await this.selectOption(group_dd, line.groupIndex);
+    }
+    if (line.subGroupLast) {
+      await this.selectLastOption(subGroup_dd);
+    } else {
+      await this.selectOption(subGroup_dd, line.subGroupIndex);
+    }
+    if (line.itemLast) {
+      await this.selectLastOption(item_dd);
+    } else {
+      await this.selectOption(item_dd, line.itemIndex);
+    }
     await this.selectOption(uom_dd, line.uomIndex);
 
     const isCostCenterDisabled = await costCenter_dd.getAttribute('aria-disabled');
