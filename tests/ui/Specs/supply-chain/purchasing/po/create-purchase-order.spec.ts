@@ -122,7 +122,7 @@ test('Verify Create Purchase Order Expenses', async ({ page }) => {
     ]);
     await createPurchaseOrderPage.submitPurchaseOrder();
 });
-test('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
+test.only('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await managePurchaseOrderPage.create_btn.click();
     await createPurchaseOrderPage.fillRequiredFields();
@@ -130,14 +130,14 @@ test('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
     const dialog = page.locator('.p-dialog:visible');
     const type_dropdown = dialog.getByRole('combobox').nth(0);
     await createPurchaseOrderPage.selectOption(type_dropdown, 1);
-    const serviceName_dropdown = dialog.getByRole('combobox').nth(1);
-    await createPurchaseOrderPage.selectOption(serviceName_dropdown, 0);
+    const serviceName_dropdown = dialog.getByRole('combobox').nth(2);
+    await createPurchaseOrderPage.selectOptionBySearch(serviceName_dropdown, 'Freight');
     const description_input = dialog.locator(
         'input[placeholder*="escription"], textarea[placeholder*="escription"]'
     ).first();
     await description_input.waitFor({ state: 'visible' });
     await description_input.fill('Service');
-    const costCenter_dropdown = dialog.getByRole('combobox').nth(2);
+    const costCenter_dropdown = dialog.getByRole('combobox').nth(1);
     await createPurchaseOrderPage.selectOption(costCenter_dropdown, 0);
     const unitPrice_input = dialog.getByPlaceholder('Enter Unit Price');
     await unitPrice_input.waitFor({ state: 'visible' });
@@ -156,7 +156,7 @@ test('Verify Create Purchase Order Service Line Freight', async ({ page }) => {
     await expect(page.getByText('Purchase Order Submitted Successfully')).toBeVisible({ timeout: 15000 });
 });
 
-test('Verify Create Purchase Order Service Lines Miscellaneous & Freight', async ({ page }) => {
+test.only('Verify Create Purchase Order Service Lines Miscellaneous & Freight', async ({ page }) => {
     await managePurchaseOrderPage.navigateToPurchaseOrders();
     await managePurchaseOrderPage.create_btn.click();
     await createPurchaseOrderPage.fillRequiredFields();
@@ -164,14 +164,14 @@ test('Verify Create Purchase Order Service Lines Miscellaneous & Freight', async
     const dialog1 = page.locator('.p-dialog:visible');
     const type_dropdown1 = dialog1.getByRole('combobox').nth(0);
     await createPurchaseOrderPage.selectOption(type_dropdown1, 1);
-    const serviceName_dropdown1 = dialog1.getByRole('combobox').nth(1);
-    await createPurchaseOrderPage.selectOption(serviceName_dropdown1, 0); // Miscellaneous
+    const serviceName_dropdown1 = dialog1.getByRole('combobox').nth(2);
+    await createPurchaseOrderPage.selectOptionBySearch(serviceName_dropdown1, 'Freight');
     const description_input1 = dialog1.locator(
         'input[placeholder*="escription"], textarea[placeholder*="escription"]'
     ).first();
     await description_input1.waitFor({ state: 'visible' });
     await description_input1.fill('Service');
-    const costCenter_dropdown1 = dialog1.getByRole('combobox').nth(2);
+    const costCenter_dropdown1 = dialog1.getByRole('combobox').nth(1);
     await createPurchaseOrderPage.selectOption(costCenter_dropdown1, 0);
     const unitPrice_input1 = dialog1.getByPlaceholder('Enter Unit Price');
     await unitPrice_input1.waitFor({ state: 'visible' });
@@ -184,14 +184,14 @@ test('Verify Create Purchase Order Service Lines Miscellaneous & Freight', async
     const dialog2 = page.locator('.p-dialog:visible');
     const type_dropdown2 = dialog2.getByRole('combobox').nth(0);
     await createPurchaseOrderPage.selectOption(type_dropdown2, 1);
-    const serviceName_dropdown2 = dialog2.getByRole('combobox').nth(1);
-    await createPurchaseOrderPage.selectOption(serviceName_dropdown2, 0);
+    const serviceName_dropdown2 = dialog2.getByRole('combobox').nth(2);
+    await createPurchaseOrderPage.selectOptionBySearch(serviceName_dropdown2, 'Miscellane');
     const description_input2 = dialog2.locator(
         'input[placeholder*="escription"], textarea[placeholder*="escription"]'
     ).first();
     await description_input2.waitFor({ state: 'visible' });
     await description_input2.fill('Service');
-    const costCenter_dropdown2 = dialog2.getByRole('combobox').nth(2);
+    const costCenter_dropdown2 = dialog2.getByRole('combobox').nth(1);
     await createPurchaseOrderPage.selectOption(costCenter_dropdown2, 0);
     const unitPrice_input2 = dialog2.getByPlaceholder('Enter Unit Price');
     await unitPrice_input2.waitFor({ state: 'visible' });
@@ -199,6 +199,39 @@ test('Verify Create Purchase Order Service Lines Miscellaneous & Freight', async
     const saveLine_btn2 = dialog2.getByRole('button', { name: 'Save', exact: true });
     await expect(saveLine_btn2).toBeEnabled({ timeout: 10000 });
     await saveLine_btn2.click();
+    await page.locator('.p-dialog').waitFor({ state: 'hidden' });
+    await page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 30000 });
+    const submit_btn = page.getByRole('button', { name: 'Submit', exact: true });
+    await expect(submit_btn).toBeVisible({ timeout: 15000 });
+    await expect(submit_btn).toBeEnabled({ timeout: 15000 });
+    await expect(submit_btn).not.toHaveText('Save as Draft');
+    await submit_btn.click();
+    await page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 30000 });
+    await expect(page.getByText('Purchase Order Submitted Successfully')).toBeVisible({ timeout: 15000 });
+});
+test.only('Verify Create Purchase Order Service Line Miscellaneous', async ({ page }) => {
+    await managePurchaseOrderPage.navigateToPurchaseOrders();
+    await managePurchaseOrderPage.create_btn.click();
+    await createPurchaseOrderPage.fillRequiredFields();
+    await createPurchaseOrderPage.addPurchaseLine();
+    const dialog = page.locator('.p-dialog:visible');
+    const type_dropdown = dialog.getByRole('combobox').nth(0);
+    await createPurchaseOrderPage.selectOption(type_dropdown, 1);
+    const serviceName_dropdown = dialog.getByRole('combobox').nth(2);
+    await createPurchaseOrderPage.selectOptionBySearch(serviceName_dropdown, 'Miscellane');
+    const description_input = dialog.locator(
+        'input[placeholder*="escription"], textarea[placeholder*="escription"]'
+    ).first();
+    await description_input.waitFor({ state: 'visible' });
+    await description_input.fill('Service');
+    const costCenter_dropdown = dialog.getByRole('combobox').nth(1);
+    await createPurchaseOrderPage.selectOption(costCenter_dropdown, 0);
+    const unitPrice_input = dialog.getByPlaceholder('Enter Unit Price');
+    await unitPrice_input.waitFor({ state: 'visible' });
+    await unitPrice_input.fill('500');
+    const saveLine_btn = dialog.getByRole('button', { name: 'Save', exact: true });
+    await expect(saveLine_btn).toBeEnabled({ timeout: 10000 });
+    await saveLine_btn.click();
     await page.locator('.p-dialog').waitFor({ state: 'hidden' });
     await page.locator('.loader-wrapper').waitFor({ state: 'hidden', timeout: 30000 });
     const submit_btn = page.getByRole('button', { name: 'Submit', exact: true });
